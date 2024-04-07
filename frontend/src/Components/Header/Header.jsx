@@ -69,12 +69,12 @@ const Header = () => {
                         </div>
 
                         <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l">
-                            <button type="button" title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
+                            <button type="button" title="Sign Up" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
                                 <p className="block text-yellow-800 font-semibold text-sm">
                                     Sign up
                                 </p>
                             </button>
-                            <button type="button" title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                            <button type="button" title="Login" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
                                 <p className="block text-yellow-900 font-semibold text-sm">
                                     Login
                                 </p>
