@@ -35,7 +35,7 @@ const CuisineList = () => {
                         <h2 className='text-yellow-900 text-4xl'>{cuisine} Recipes</h2>
                         <Link to={`/country/${cuisine}`} className='text-gray-700 font-semibold'>View All</Link>
                     </div>
-                    <ul className='flex justify-between items center flex-wrap mt-6 gap-2'>
+                    <ul className='flex justify-between items-center flex-wrap mt-6 gap-2'>
                         {recipes.map(recipe => (
                             <li key={recipe.idMeal} className='relative h-52 w-80 shadow-xl transition-all'>
                                 <Link to={`/meal/${recipe.idMeal}`}>
