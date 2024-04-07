@@ -4,11 +4,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import HeroImage from "../Assets/logo/hero.svg"
 import BannerRandomRes from '../Components/Banner/BannerRandomRes'
 import Feature from '../Components/Feature/Feature';
+import CuisineList from './CuisineList';
 const Home = () => {
     const navigate = useNavigate();
     const [data, setData] = useState();
-    const [searchData, setSearchData] = useState()
-    const [searchDataValue, setSearchDataValue] = useState()
+    const [searchData, setSearchData] = useState();
+    const [searchDataValue, setSearchDataValue] = useState();
+    const [isScrolled, setIsScrolled] = useState(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -49,7 +65,7 @@ const Home = () => {
                                         <i className="fa-solid fa-magnifying-glass text-xl"></i>
                                     </button>
                                     {searchData?.length > 0 &&
-                                        <ul id='search-result' className='absolute w-full top-24 -left-[1px] bg-yellow-300 max-h-[300px] overflow-y-scroll rounded-xl shadow-lg'>
+                                        <ul id='search-result' className={`${isScrolled ? "hidden" : "block"} absolute w-full top-24 -left-[1px] bg-yellow-300 max-h-[300px] overflow-y-scroll rounded-xl shadow-lg`}>
                                             {searchDataValue ? searchDataValue.map((search) => (
                                                 <Link to={`/meal/${search.idMeal}`} key={search.idMeal}><li className='px-6 py-2 transition-all hover:bg-white'><span className='text-yellow-900'>{search.strMeal}</span><p className='font-semibold text-xs text-gray-700'>{search.strArea}</p></li></Link>
                                             )) : <p className='px-6 py-2 font-semibold text-xs text-gray-700'>No search found.</p>}
@@ -70,6 +86,7 @@ const Home = () => {
             </section>
             <BannerRandomRes data={data} />
             <Feature />
+            <CuisineList />
         </>
     )
 }

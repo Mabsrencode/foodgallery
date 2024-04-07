@@ -66,7 +66,7 @@ const SingleCountryDish = () => {
                                     <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 opacity-80 transition duration-300 ease-in-out group-hover:opacity-100 dark:opacity-70">
                                         <img src={`${meal.strMealThumb}`} alt="" />
                                     </div>
-                                    <div className="absolute w-full bg-white bottom-0 z-10 m-0 py-4 px-4 transition duration-300 ease-in-out rounded-xl">
+                                    <div className="absolute w-full bg-yellow-400 bottom-0 z-10 m-0 py-4 px-4 transition duration-300 ease-in-out rounded-xl">
                                         <h1 className={` font-bold text-yellow-900 ${meal.strMeal.length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal}</h1>
                                         <p className="text-sm  text-gray-700 font-semibold">{meal.strArea}</p>
                                     </div>
