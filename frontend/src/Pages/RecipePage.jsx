@@ -19,11 +19,11 @@ const RecipePage = () => {
                     <div className="container flex flex-col-reverse gap-6 px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row-reverse lg:items-center">
                         <div className="w-full lg:w-1/2">
                             <div className="lg:max-w-lg">
-                                {recipe.strYoutube && <Link to={`${recipe.strYoutube}`} className='block mb-4 bg-yellow-300 px-6 py-2 text-center rounded-lg underline font-semibold text-yellow-900'>
+                                {recipe.strYoutube && <Link to={`${recipe.strYoutube}`} className='hover:bg-yellow-200 block mb-4 bg-yellow-300 px-6 py-2 text-center rounded-lg font-semibold text-yellow-900'>
                                     Watch on Youtube how to make this recipe.
                                 </Link>}
-                                {recipe.strSource && <Link to={recipe.strSource} className='block truncate mb-4 bg-yellow-300 px-6 py-2 text-center rounded-lg underline font-semibold text-yellow-900'>
-                                    From: {recipe.strSource}
+                                {recipe.strSource && <Link to={recipe.strSource} className='hover:bg-yellow-200 block truncate mb-4 bg-yellow-300 px-6 py-2 text-center rounded-lg font-semibold text-yellow-900'>
+                                    Source
                                 </Link>}
                                 <h1 className="text-3xl font-bold tracking-wide text-yellow-900 lg:text-5xl">
                                     {recipe.strMeal}
