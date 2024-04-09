@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const CuisineList = () => {
     const [recipes, setRecipes] = useState([]);
-    console.log(recipes)
     useEffect(() => {
         const getCuisineRecipes = async () => {
             const cuisineNames = ['Filipino', 'Italian', 'Japanese'];

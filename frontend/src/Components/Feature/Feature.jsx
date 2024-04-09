@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const Feature = () => {
     return (
         <section className='mt-[10%]'>
-            <h1 className='text-center text-4xl md:text-7xl text-yellow-900 mb-6'>Favorite</h1>
+            <h1 className='text-center text-4xl md:text-7xl text-yellow-900 mb-6'>Wife's Favorite</h1>
             <div className="container flex flex-col-reverse gap-6 px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center">
                 <div className="w-full lg:w-1/2">
                     <div className="lg:max-w-lg">
@@ -11,7 +11,7 @@ const Feature = () => {
                             Beef Caldereta
                         </h1>
                         <ul className="mt-8 space-y-5">
-                            <p className="mx-2">Wife's favorites
+                            <p className="mx-2">
                                 Beef Caldereta
                                 A classic Filipino beef stew simmered in tomato sauce together with carrots, potatoes, and capsicums. Best paired with a steaming hot rice. </p>
                         </ul>
@@ -35,7 +35,7 @@ const Feature = () => {
                             Big Mac
                         </h1>
                         <ul className="mt-8 space-y-5">
-                            <p className="mx-2">Wife's favorites
+                            <p className="mx-2">
                                 For bigs and young once, you will never go wrong with a good American burger meal!</p>
                         </ul>
                         <div className='mt-6'>

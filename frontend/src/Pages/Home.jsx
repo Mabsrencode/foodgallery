@@ -11,6 +11,7 @@ const Home = () => {
     const [searchData, setSearchData] = useState();
     const [searchDataValue, setSearchDataValue] = useState();
     const [isScrolled, setIsScrolled] = useState(false);
+    const [loadingSearch, setLoadingSearch] = useState(false);
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 0) {
@@ -40,10 +41,13 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoadingSearch(true);
                 const data = (await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchData}`)).data.meals
                 setSearchDataValue(data);
+                setLoadingSearch(false)
             } catch (error) {
                 console.log(error)
+                setLoadingSearch(false)
             }
         }
         fetchData();
@@ -66,9 +70,9 @@ const Home = () => {
                                     </button>
                                     {searchData?.length > 0 &&
                                         <ul id='search-result' className={`${isScrolled ? "hidden" : "block"} absolute w-full top-24 -left-[1px] bg-yellow-300 max-h-[300px] overflow-y-scroll rounded-xl shadow-lg`}>
-                                            {searchDataValue ? searchDataValue.map((search) => (
+                                            {loadingSearch ? <p className='px-6 py-2 font-semibold text-xs text-gray-700'>Searching...</p> : <>{searchDataValue ? searchDataValue.map((search) => (
                                                 <Link to={`/meal/${search.idMeal}`} key={search.idMeal}><li className='px-6 py-2 transition-all hover:bg-white'><span className='text-yellow-900'>{search.strMeal}</span><p className='font-semibold text-xs text-gray-700'>{search.strArea}</p></li></Link>
-                                            )) : <p className='px-6 py-2 font-semibold text-xs text-gray-700'>No search found.</p>}
+                                            )) : <p className='px-6 py-2 font-semibold text-xs text-gray-700'>No search found.</p>}</>}
                                         </ul>
                                     }
                                 </div>
