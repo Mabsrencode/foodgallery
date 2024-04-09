@@ -2,10 +2,31 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import Paginate from '../Components/Paginate/Paginate'
 const SingleCategoryPage = () => {
     const { _id } = useParams();
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(6)
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+    const previousPage = () => {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const nextPage = () => {
+        if (currentPage !== Math.ceil(data.length / postsPerPage)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -64,7 +85,7 @@ const SingleCategoryPage = () => {
                         </div>
                     </div>
                 </> : <>
-                    {data ? data?.map((meal) => (
+                    {currentPosts ? currentPosts?.map((meal) => (
 
                         <Link to={`/meal/${meal.idMeal}`} key={meal.idMeal}>
                             <div className="cursor-pointer">
@@ -87,6 +108,20 @@ const SingleCategoryPage = () => {
                     </div>}
                 </>}
             </div>
+            {data ? (
+                <div className="blog-content-section">
+                    <Paginate
+                        postsPerPage={postsPerPage}
+                        totalPosts={data.length}
+                        paginate={paginate}
+                        previousPage={previousPage}
+                        nextPage={nextPage}
+                        currentPage={currentPage}
+                    />
+                </div>
+            ) : (
+                <></>
+            )}
         </section>
     )
 }

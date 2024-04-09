@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import HeroImage from "../Assets/logo/hero.svg"
 import BannerRandomRes from '../Components/Banner/BannerRandomRes'
 import Feature from '../Components/Feature/Feature';
-import CuisineList from './CuisineList';
+import CuisineList from '../Components/CuisineList/CuisineList';
 const Home = () => {
     const navigate = useNavigate();
     const [data, setData] = useState();
