@@ -58,7 +58,7 @@ const Header = () => {
 
                         <div className={`${navClick ? "scale-100 h-full p-6 md:mt-12" : "scale-0 h-0"} lg:mt-0 origin-top transition-all w-full lg:scale-100  lg:flex flex-wrap justify-end items-center space-y-6  rounded-xl  bg-yellow-100 lg:space-y-0 lg:p-0 lg:flex-nowrap lg:bg-transparent lg:w-7/12`}>
                             <div className="text-gray-600 lg:pr-4">
-                                <ul className="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0">
+                                <ul className="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0 text-nowrap">
                                     <li>
                                         <Link to={"/categories"} className="block md:px-4 transition hover:text-yellow-700">
                                             All Categories
@@ -70,6 +70,11 @@ const Header = () => {
                                         </Link>
                                     </li>
                                     <li>
+                                        <Link to={"/new_recipes"} className="block md:px-4 transition hover:text-yellow-700">
+                                            New Recipes
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link to={""} className="block md:px-4 transition hover:text-yellow-700">
                                             About
                                         </Link>
@@ -77,7 +82,7 @@ const Header = () => {
                                 </ul>
                             </div>
 
-                            <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l">
+                            <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l md:text-nowrap">
                                 <button type="button" title="Sign Up" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
                                     <p className="block text-yellow-800 font-semibold text-sm">
                                         Sign up

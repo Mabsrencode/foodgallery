@@ -6,6 +6,8 @@ import AllRecipePage from "./Pages/AllCategoriesPage.jsx";
 import SingleCategoryPage from "./Pages/SingleCategoryPage.jsx";
 import CountryDish from "./Pages/CountryDish.jsx";
 import SingleCountryDish from "./Pages/SingleCountryDish.jsx";
+import NewRecipes from "./Pages/NewRecipes.jsx";
+import NewRecipeSinglePage from "./Pages/NewRecipeSinglePage.jsx";
 function App() {
   return (
     <div className="App">
@@ -18,6 +20,8 @@ function App() {
             <Route path="/categories" element={<AllRecipePage />} />
             <Route path="/country" element={<CountryDish />} />
             <Route path="/country/:_id" element={<SingleCountryDish />} />
+            <Route path="/new_recipes" element={<NewRecipes />} />
+            <Route path="/new_recipe/:_id" element={<NewRecipeSinglePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

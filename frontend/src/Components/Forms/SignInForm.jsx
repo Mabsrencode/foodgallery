@@ -18,7 +18,7 @@ const SignInForm = ({ open, setOpen }) => {
     }
     return (
         <>
-            <div id='modal-container' className={`${open ? "block" : "hidden"} flex justify-center items-center h-[100vh] w-[100vw] fixed z-30 bg-white backdrop-filter backdrop-blur-lg bg-opacity-30`} onClick={handleCloseModal}>
+            <div className={`${open ? "block" : "hidden"} h-[100vh] w-[100vw] fixed top-0 left-0 z-30 bg-white backdrop-filter backdrop-blur-lg bg-opacity-30`} onClick={handleCloseModal}>
             </div>
             <div className='form-container px-6'>
                 <div className={`${open ? "block" : "hidden"} z-30 flex flex-col gap-4 bg-white shadow-xl rounded-xl py-3 px-6 w-full mx-auto md:w-[600px]`}>
