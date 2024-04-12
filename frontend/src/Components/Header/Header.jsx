@@ -41,7 +41,7 @@ const Header = () => {
     }, []);
     return (
         <>
-            <nav className={`fixed z-20 w-full ${navClick && "bg-white"} bg-transparent ${isScrolled && "backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-200 shadow-md"}`}>
+            <nav className={`fixed z-20 w-full ${navClick && "bg-white"} lg:bg-transparent ${isScrolled && "backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-200 shadow-md"}`}>
                 <div className="container m-auto px-2 md:px-12 lg:px-7">
                     <div className={`flex flex-wrap justify-between items-center py-3 ${navClick && "gap-6"} lg:gap-6 md:py-4 md:gap-0`}>
                         <div className="w-full px-6 flex justify-between items-center lg:w-max md:px-0">
@@ -56,7 +56,7 @@ const Header = () => {
                             </button>
                         </div>
 
-                        <div className={`${navClick ? "scale-100 h-full p-6 md:mt-12" : "scale-0 h-0"} origin-top transition-all w-full lg:scale-100  lg:flex flex-wrap justify-end items-center space-y-6  rounded-xl  bg-yellow-100 lg:space-y-0 lg:p-0 lg:flex-nowrap lg:bg-transparent lg:w-7/12`}>
+                        <div className={`${navClick ? "scale-100 h-full p-6 md:mt-12" : "scale-0 h-0"} lg:mt-0 origin-top transition-all w-full lg:scale-100  lg:flex flex-wrap justify-end items-center space-y-6  rounded-xl  bg-yellow-100 lg:space-y-0 lg:p-0 lg:flex-nowrap lg:bg-transparent lg:w-7/12`}>
                             <div className="text-gray-600 lg:pr-4">
                                 <ul className="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0">
                                     <li>
@@ -93,7 +93,7 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-            <SignInForm open={openModal} />
+            <SignInForm open={openModal} setOpen={setOpenModal} />
         </>
     )
 }

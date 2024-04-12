@@ -32,14 +32,14 @@ const CuisineList = () => {
                 <div key={cuisine} className='container m-auto px-6 pt-32 md:px-12 lg:pt-[4.8rem] lg:px-7'>
                     <div className='flex justify-between items-center text-xl'>
                         <h2 className='text-yellow-900 md:text-4xl'>{cuisine} Recipes</h2>
-                        <Link to={`/country/${cuisine}`} className='text-gray-700 font-semibold'>View All</Link>
+                        <Link to={`/country/${cuisine}`} className='text-gray-700 font-semibold hover:underline'>View All</Link>
                     </div>
                     <ul className='flex justify-center items-center flex-wrap mt-6 gap-24 md:gap-12 mt-[5%]'>
                         {recipes.map(recipe => (
-                            <li key={recipe.idMeal} className='relative h-52 w-full lg:w-80 shadow-xl transition-all'>
+                            <li key={recipe.idMeal} className='relative h-52 w-full lg:w-80 shadow-xl bg-yellow-50 rounded-lg overflow-hidden'>
                                 <Link to={`/meal/${recipe.idMeal}`}>
-                                    <img src={recipe.strMealThumb} alt={recipe.strMeal} className='w-full h-full object-cover rounded-xl opacity-70 hover:opacity-100 transition-all' />
-                                    <h1 className='absolute right-0 bottom-0 text-yellow-900 w-full py-3 px-6 bg-yellow-400 rounded-lg'>{recipe.strMeal}</h1>
+                                    <img src={recipe.strMealThumb} alt={recipe.strMeal} className='w-full h-full object-cover rounded-lg hover:scale-110 transition-all' />
+                                    <h1 className='absolute right-0 bottom-0 text-yellow-900 w-full py-3 px-6 bg-yellow-400 '>{recipe.strMeal}</h1>
                                 </Link>
                             </li>
                         ))}
