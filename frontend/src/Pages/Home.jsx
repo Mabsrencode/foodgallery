@@ -83,7 +83,7 @@ const Home = () => {
                             </Link>
                         </div>
                         <div className="hidden lg:block ml-auto -mb-24 lg:-mb-56 lg:w-6/12">
-                            <img src={HeroImage} className="relative" alt="food illustration" loading="lazy" width="4500" height="4500" />
+                            <img src={HeroImage} className="relative" alt="food illustration" width="4500" height="4500" />
                         </div>
                     </div>
                 </div>

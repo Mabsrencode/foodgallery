@@ -1,30 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Logo from "../../Assets/logo/logo.svg";
 import SignInForm from '../Forms/SignInForm';
+import SignUpForm from '../Forms/SignUpForm';
+
 const Header = () => {
     const [navClick, setNavClick] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
+    const [openSignInModal, setOpenSignInModal] = useState(false);
+    const [openSignUpModal, setOpenSignUpModal] = useState(false);
+
     const handleClick = () => {
-        setNavClick(!navClick)
+        setNavClick(!navClick);
         if (!navClick) {
-            document.getElementById("line").style.rotate = "45deg"
-            document.getElementById("line2").style.marginTop = "-2px"
-            document.getElementById("line2").style.rotate = "-45deg"
+            document.getElementById("line").style.rotate = "45deg";
+            document.getElementById("line2").style.marginTop = "-2px";
+            document.getElementById("line2").style.rotate = "-45deg";
         } else {
-            document.getElementById("line").style.rotate = "0deg"
-            document.getElementById("line2").style.marginTop = "8px"
-            document.getElementById("line2").style.rotate = "0deg"
+            document.getElementById("line").style.rotate = "0deg";
+            document.getElementById("line2").style.marginTop = "8px";
+            document.getElementById("line2").style.rotate = "0deg";
         }
     };
-    const handleOpenSignInForm = () => {
-        setOpenModal(!openModal);
+
+    const handleOpenSignUpForm = () => {
+        setOpenSignUpModal(!openSignUpModal);
+        setOpenSignInModal(false);
         setNavClick(!navClick);
-        document.getElementById("line").style.rotate = "0deg"
-        document.getElementById("line2").style.marginTop = "8px"
-        document.getElementById("line2").style.rotate = "0deg"
-    }
+        document.getElementById("line").style.rotate = "0deg";
+        document.getElementById("line2").style.marginTop = "8px";
+        document.getElementById("line2").style.rotate = "0deg";
+    };
+
+    const handleOpenSignInForm = () => {
+        setOpenSignInModal(!openSignInModal);
+        setOpenSignUpModal(false);
+        setNavClick(!navClick);
+        document.getElementById("line").style.rotate = "0deg";
+        document.getElementById("line2").style.marginTop = "8px";
+        document.getElementById("line2").style.rotate = "0deg";
+    };
+
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 100) {
@@ -39,6 +55,7 @@ const Header = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
     return (
         <>
             <nav className={`fixed z-20 w-full ${navClick && "bg-white"} lg:bg-transparent ${isScrolled && "backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-200 shadow-md"}`}>
@@ -60,22 +77,22 @@ const Header = () => {
                             <div className="text-gray-600 lg:pr-4">
                                 <ul className="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0 text-nowrap">
                                     <li>
-                                        <Link to={"/categories"} className="block md:px-4 transition hover:text-yellow-700">
+                                        <Link onClick={handleClick} to={"/categories"} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
                                             All Categories
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={"/country"} className="block md:px-4 transition hover:text-yellow-700">
+                                        <Link onClick={handleClick} to={"/country"} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
                                             Country
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={"/new_recipes"} className="block md:px-4 transition hover:text-yellow-700">
+                                        <Link onClick={handleClick} to={"/new_recipes"} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
                                             New Recipes
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={""} className="block md:px-4 transition hover:text-yellow-700">
+                                        <Link onClick={handleClick} to={""} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
                                             About
                                         </Link>
                                     </li>
@@ -83,14 +100,14 @@ const Header = () => {
                             </div>
 
                             <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l md:text-nowrap">
-                                <button type="button" title="Sign Up" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
+                                <button onClick={handleOpenSignUpForm} type="button" title="Sign Up" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
                                     <p className="block text-yellow-800 font-semibold text-sm">
                                         Sign up
                                     </p>
                                 </button>
                                 <button onClick={handleOpenSignInForm} type="button" title="Login" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
                                     <p className="block text-yellow-900 font-semibold text-sm">
-                                        Login
+                                        Sign in
                                     </p>
                                 </button>
                             </div>
@@ -98,9 +115,10 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-            <SignInForm open={openModal} setOpen={setOpenModal} />
+            <SignInForm open={openSignInModal} setOpen={setOpenSignInModal} />
+            <SignUpForm open={openSignUpModal} setOpen={setOpenSignUpModal} />
         </>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;

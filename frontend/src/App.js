@@ -8,6 +8,7 @@ import CountryDish from "./Pages/CountryDish.jsx";
 import SingleCountryDish from "./Pages/SingleCountryDish.jsx";
 import NewRecipes from "./Pages/NewRecipes.jsx";
 import NewRecipeSinglePage from "./Pages/NewRecipeSinglePage.jsx";
+import NoPage from "./Pages/NoPage.jsx";
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,7 @@ function App() {
             <Route path="/country/:_id" element={<SingleCountryDish />} />
             <Route path="/new_recipes" element={<NewRecipes />} />
             <Route path="/new_recipe/:_id" element={<NewRecipeSinglePage />} />
+            <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
