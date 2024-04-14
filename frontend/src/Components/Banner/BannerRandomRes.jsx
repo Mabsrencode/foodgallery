@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ImageLoader from '../ImageLoader/ImageLoader';
 const BannerRandomRes = ({ data }) => {
+    const [imageLoading, setImageLoading] = useState(true);
+    const handleImageLoad = () => {
+        setTimeout(() => {
+            setImageLoading(false);
+        }, 2000)
+    };
     return (
         <section className='mt-[10%]'>
             {data?.map((recipe) => (
@@ -44,8 +51,10 @@ const BannerRandomRes = ({ data }) => {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-center w-full h-96 lg:w-1/2">
-                        <img className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src={recipe.strMealThumb} alt="glasses " />
+                    <div className="relative flex items-center justify-center w-full h-96 lg:w-1/2">
+                        {imageLoading && <ImageLoader />}
+                        <img onLoad={handleImageLoad} className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src={recipe.strMealThumb} alt="glasses " />
+
                     </div>
                 </div>
             ))}

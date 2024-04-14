@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ImageLoader from '../ImageLoader/ImageLoader';
 const Feature = () => {
+    const [imageLoading, setImageLoading] = useState(true);
+    const handleImageLoad = () => {
+        setTimeout(() => {
+            setImageLoading(false);
+        }, 2000)
+    };
     return (
         <section className='mt-[10%]'>
             <h1 className='text-center text-4xl md:text-7xl text-yellow-900 mb-6'>Wife's Favorite</h1>
@@ -24,8 +31,9 @@ const Feature = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-center w-full h-96 lg:w-1/2">
-                    <img className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src="https://www.themealdb.com/images/media/meals/41cxjh1683207682.jpg" alt="glasses " />
+                <div className="relative flex items-center justify-center w-full h-96 lg:w-1/2">
+                    {imageLoading && <ImageLoader />}
+                    <img onLoad={handleImageLoad} className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src="https://www.themealdb.com/images/media/meals/41cxjh1683207682.jpg" alt="glasses " />
                 </div>
             </div>
             <div className="container flex flex-col-reverse gap-6 px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row-reverse lg:items-center">
@@ -47,8 +55,9 @@ const Feature = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-center w-full h-96 lg:w-1/2">
-                    <img className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src="https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg" alt="glasses " />
+                <div className="relative flex items-center justify-center w-full h-96 lg:w-1/2">
+                    {imageLoading && <ImageLoader />}
+                    <img onLoad={handleImageLoad} className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src="https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg" alt="glasses " />
                 </div>
             </div>
             <div className="container flex flex-col-reverse gap-6 px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center">
@@ -69,8 +78,9 @@ const Feature = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-center w-full h-96 lg:w-1/2">
-                    <img className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src="https://www.themealdb.com/images/media/meals/x0lk931587671540.jpg" alt="glasses " />
+                <div className="relative flex items-center justify-center w-full h-96 lg:w-1/2">
+                    {imageLoading && <ImageLoader />}
+                    <img onLoad={handleImageLoad} className="object-cover w-full h-full mx-auto rounded-md lg:max-w-2xl" src="https://www.themealdb.com/images/media/meals/x0lk931587671540.jpg" alt="glasses " />
                 </div>
             </div>
         </section>

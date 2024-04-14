@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import ImageLoader from '../Components/ImageLoader/ImageLoader';
 const AllRecipePage = () => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(false);
+    const [imageLoading, setImageLoading] = useState(true);
+    const handleImageLoad = () => {
+        setTimeout(() => {
+            setImageLoading(false);
+        }, 2000)
+    };
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -94,7 +101,8 @@ const AllRecipePage = () => {
                 </> : <>{data?.map((category) => (
                     <div key={category.idCategory} className="relative flex w-full max-w-[48rem] h-full md:max-h-[18rem] flex-col md:flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                         <div className="relative m-0 md:w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-                            <img
+                            {imageLoading && <ImageLoader />}
+                            <img onLoad={handleImageLoad}
                                 src={`${category.strCategoryThumb}`}
                                 alt={`${category.strCategory}`}
                                 className="h-full w-full object-cover bg-yellow-300"

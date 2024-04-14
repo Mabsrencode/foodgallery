@@ -69,9 +69,9 @@ const SignInForm = ({ open, setOpen }) => {
                                     </div>
                                     <button type="submit" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 font-semibold text-yellow-900">Sign in</button>
                                 </form>
-                                <button class="text-sm text-gray-700">
-                                    Don't have an account yet? <button onClick={handleSwitch} type='button' class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</button>
-                                </button>
+                                <div class="text-sm text-gray-700 flex gap-1 items-center">
+                                    <p>Don't have an account yet?</p> <button onClick={handleSwitch} type='button' class="font-medium hover:underline">Sign up</button>
+                                </div>
                             </div>
                         </div>
                     </div>

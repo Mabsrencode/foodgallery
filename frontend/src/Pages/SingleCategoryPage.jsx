@@ -3,10 +3,17 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Paginate from '../Components/Paginate/Paginate'
+import ImageLoader from '../Components/ImageLoader/ImageLoader'
 const SingleCategoryPage = () => {
     const { _id } = useParams();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [imageLoading, setImageLoading] = useState(true);
+    const handleImageLoad = () => {
+        setTimeout(() => {
+            setImageLoading(false);
+        }, 2000)
+    };
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(6)
     const indexOfLastPost = currentPage * postsPerPage;
@@ -90,8 +97,9 @@ const SingleCategoryPage = () => {
                         <Link to={`/meal/${meal.idMeal}`} key={meal.idMeal}>
                             <div className="cursor-pointer">
                                 <div className="group relative m-0 flex h-72 max-w-96 rounded-xl shadow-xl  sm:mx-auto sm:max-w-lg overflow-hidden">
-                                    <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 transition-all hover:scale-110">
-                                        <img src={`${meal.strMealThumb}`} alt="" />
+                                    <div className="relative z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 transition-all hover:scale-110">
+                                        {imageLoading && <ImageLoader />}
+                                        <img onLoad={handleImageLoad} src={`${meal.strMealThumb}`} alt="" />
                                     </div>
                                     <div className="absolute w-full bg-yellow-400 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
                                         <h1 className={`text-yellow-900 ${meal.strMeal.length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal}</h1>
