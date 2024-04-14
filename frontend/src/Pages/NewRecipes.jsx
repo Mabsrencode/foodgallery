@@ -19,6 +19,7 @@ const NewRecipes = () => {
     const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
+        setImageLoading(true);
     };
     const previousPage = () => {
         if (currentPage !== 1) {
