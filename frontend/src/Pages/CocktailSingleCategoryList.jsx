@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import Paginate from '../Components/Paginate/Paginate'
+import { Link, useParams } from 'react-router-dom'
 import ImageLoader from '../Components/ImageLoader/ImageLoader'
-const SingleCategoryPage = () => {
-    const { _id } = useParams();
-    const [data, setData] = useState([]);
-    console.log(data)
-    const [loading, setLoading] = useState(false);
+import Paginate from '../Components/Paginate/Paginate'
+const CocktailSingleCategoryList = () => {
+    const { _id } = useParams()
+    const [data, setData] = useState();
+    const [loading, setLoading] = useState(false)
     const [imageLoading, setImageLoading] = useState(true);
     const handleImageLoad = () => {
         setTimeout(() => {
@@ -35,24 +33,20 @@ const SingleCategoryPage = () => {
             setCurrentPage(currentPage + 1);
         }
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const data1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`)).data.meals
-                const data2 = (await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`)).data.drinks
-                setData([...data1, ...data2])
-                setTimeout(() => {
-                    setLoading(false);
-                }, 2000)
-            } catch (error) {
-                console.log(error)
-                setLoading(false);
-            }
+    const fetchCocktailData = async () => {
+        try {
+            setLoading(true)
+            const data = (await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${_id}`)).data.drinks
+            setData(data)
+            setLoading(false)
+        } catch (error) {
+            console.log(error.message)
+            setLoading(false)
         }
-        fetchData()
-    }, [_id])
+    }
+    useEffect(() => {
+        fetchCocktailData();
+    }, [])
     return (
         <section className='pt-[10%]'>
             <h1 className='text-7xl font-semibold text-yellow-900 text-center my-24'>{_id}</h1>
@@ -95,17 +89,17 @@ const SingleCategoryPage = () => {
                         </div>
                     </div>
                 </> : <>
-                    {currentPosts ? currentPosts?.map((meal) => (
-                        <Link to={(meal.idMeal && `/meal/${meal.idMeal}`) || (meal.idDrink && `/drink/${meal.idDrink}`)} key={meal.idMeal || meal.idDrink}>
+                    {currentPosts ? currentPosts?.map((drink) => (
+
+                        <Link to={`/drink/${drink.idDrink}`} key={drink.idDrink}>
                             <div className="cursor-pointer">
                                 <div className="group relative m-0 flex h-72 max-w-96 rounded-xl shadow-xl  sm:mx-auto sm:max-w-lg overflow-hidden">
                                     <div className="relative z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 transition-all hover:scale-110">
                                         {imageLoading && <ImageLoader />}
-                                        <img onLoad={handleImageLoad} src={`${meal.strMealThumb || meal.strDrinkThumb}`} alt="" />
+                                        <img onLoad={handleImageLoad} src={`${drink.strDrinkThumb}`} alt="" />
                                     </div>
                                     <div className="absolute w-full bg-yellow-400 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
-                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal.strDrink).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.strDrink}</h1>
-                                        <p className="text-sm text-gray-700 font-semibold">{meal.strArea}</p>
+                                        <h1 className={`text-yellow-900 ${drink.strDrink.length > 30 ? "text-lg" : "text-2xl"}`}>{drink.strDrink}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -136,4 +130,4 @@ const SingleCategoryPage = () => {
     )
 }
 
-export default SingleCategoryPage
+export default CocktailSingleCategoryList
