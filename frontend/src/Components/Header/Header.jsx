@@ -9,7 +9,6 @@ const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [openSignInModal, setOpenSignInModal] = useState(false);
     const [openSignUpModal, setOpenSignUpModal] = useState(false);
-
     const handleClick = () => {
         setNavClick(!navClick);
         if (!navClick) {
@@ -89,6 +88,11 @@ const Header = () => {
                                     <li>
                                         <Link onClick={handleClick} to={"/new_recipes"} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
                                             New Recipes
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link onClick={handleClick} to={"/cocktails"} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
+                                            Cocktails
                                         </Link>
                                     </li>
                                     <li>

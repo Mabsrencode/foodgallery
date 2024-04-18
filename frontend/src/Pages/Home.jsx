@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import HeroImage from "../Assets/logo/hero.svg"
-import BannerRandomRes from '../Components/Banner/BannerRandomRes'
+import BannerRandomRes from '../Components/Banner/BannerRandomResFood'
 import Feature from '../Components/Feature/Feature';
 import CuisineList from '../Components/CuisineList/CuisineList';
 const Home = () => {

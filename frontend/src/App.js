@@ -9,6 +9,9 @@ import SingleCountryDish from "./Pages/SingleCountryDish.jsx";
 import NewRecipes from "./Pages/NewRecipes.jsx";
 import NewRecipeSinglePage from "./Pages/NewRecipeSinglePage.jsx";
 import NoPage from "./Pages/NoPage.jsx";
+import Cocktails from "./Pages/Cocktails.jsx";
+import CockTailRecipePage from "./Pages/CockTailRecipePage.jsx";
+import CocktailSingleCategoryList from "./Pages/CocktailSingleCategoryList.jsx";
 function App() {
   return (
     <div className="App">
@@ -23,6 +26,12 @@ function App() {
             <Route path="/country/:_id" element={<SingleCountryDish />} />
             <Route path="/new_recipes" element={<NewRecipes />} />
             <Route path="/new_recipe/:_id" element={<NewRecipeSinglePage />} />
+            <Route path="/cocktails" element={<Cocktails />} />
+            <Route path="/drink/:_id" element={<CockTailRecipePage />} />
+            <Route
+              path="/drink/category/:_id"
+              element={<CocktailSingleCategoryList />}
+            />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

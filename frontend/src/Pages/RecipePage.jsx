@@ -71,26 +71,18 @@ const RecipePage = () => {
                             <div className='w-full lg:w-1/2'>
                                 <h1 className='text-xl text-yellow-900 font-bold'>INGREDIENTS</h1>
                                 <ul className='mt-6'>
-                                    {recipe.strIngredient1 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure1}</strong> {recipe.strIngredient1}</li>)}
-                                    {recipe.strIngredient2 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure2}</strong> {recipe.strIngredient2}</li>)}
-                                    {recipe.strIngredient3 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure3}</strong> {recipe.strIngredient3}</li>)}
-                                    {recipe.strIngredient4 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure4}</strong> {recipe.strIngredient4}</li>)}
-                                    {recipe.strIngredient5 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure5}</strong> {recipe.strIngredient5}</li>)}
-                                    {recipe.strIngredient6 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure6}</strong> {recipe.strIngredient6}</li>)}
-                                    {recipe.strIngredient7 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure7}</strong> {recipe.strIngredient7}</li>)}
-                                    {recipe.strIngredient8 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure8}</strong> {recipe.strIngredient8}</li>)}
-                                    {recipe.strIngredient9 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure9}</strong> {recipe.strIngredient9}</li>)}
-                                    {recipe.strIngredient10 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure10}</strong> {recipe.strIngredient10}</li>)}
-                                    {recipe.strIngredient11 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure11}</strong> {recipe.strIngredient11}</li>)}
-                                    {recipe.strIngredient12 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure12}</strong> {recipe.strIngredient12}</li>)}
-                                    {recipe.strIngredient13 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure13}</strong> {recipe.strIngredient13}</li>)}
-                                    {recipe.strIngredient14 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure14}</strong> {recipe.strIngredient14}</li>)}
-                                    {recipe.strIngredient15 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure15}</strong> {recipe.strIngredient15}</li>)}
-                                    {recipe.strIngredient16 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure16}</strong> {recipe.strIngredient16}</li>)}
-                                    {recipe.strIngredient17 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure17}</strong> {recipe.strIngredient17}</li>)}
-                                    {recipe.strIngredient18 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure18}</strong> {recipe.strIngredient18}</li>)}
-                                    {recipe.strIngredient19 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure19}</strong> {recipe.strIngredient19}</li>)}
-                                    {recipe.strIngredient20 && (<li className='capitalize flex gap-6'><strong>{recipe.strMeasure20}</strong> {recipe.strIngredient20}</li>)}
+                                    {[...Array(20).keys()].map(index => {
+                                        const ingredient = recipe[`strIngredient${index + 1}`];
+                                        const measurement = recipe[`strMeasure${index + 1}`];
+                                        if (ingredient) {
+                                            return (
+                                                <li key={index} className='capitalize flex gap-6'>
+                                                    <strong>{measurement}</strong> {ingredient}
+                                                </li>
+                                            );
+                                        }
+                                        return null;
+                                    })}
                                 </ul>
                             </div>
                         </div>
