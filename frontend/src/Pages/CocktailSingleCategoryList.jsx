@@ -46,7 +46,7 @@ const CocktailSingleCategoryList = () => {
     }
     useEffect(() => {
         fetchCocktailData();
-    }, [])
+    }, [_id])
     return (
         <section className='pt-[10%]'>
             <h1 className='text-7xl font-semibold text-yellow-900 text-center my-24'>{_id}</h1>

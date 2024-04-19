@@ -20,6 +20,7 @@ const SingleCategoryPage = () => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+    console.log(currentPosts)
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
         setImageLoading(true);
@@ -40,17 +41,22 @@ const SingleCategoryPage = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const data1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`)).data.meals
-                const data2 = (await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`)).data.drinks
-                setData([...data1, ...data2])
+                const response1 = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`);
+                const response2 = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`);
+
+                const data1 = response1.data.meals || [];
+                const data2 = response2.data.drinks || [];
+
+                setData([...data1, ...data2]);
                 setTimeout(() => {
                     setLoading(false);
-                }, 2000)
+                }, 2000);
             } catch (error) {
-                console.log(error)
+                console.log(error.message);
                 setLoading(false);
             }
-        }
+        };
+
         fetchData()
     }, [_id])
     return (

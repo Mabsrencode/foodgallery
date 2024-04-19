@@ -8,7 +8,7 @@ const Cocktails = () => {
     const [data, setData] = useState()
     const [cocktailData, setCocktailData] = useState()
     console.log(cocktailData)
-    const [loading, setLoading] = useState(false)
+
     const navigate = useNavigate();
     const [searchData, setSearchData] = useState();
     const [searchDataValue, setSearchDataValue] = useState();
@@ -30,12 +30,9 @@ const Cocktails = () => {
     }, []);
     const fetchCocktailData = async () => {
         try {
-            setLoading(true);
             const data = (await axios.get("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list")).data.drinks
             setCocktailData(data)
-            setLoading(false)
         } catch (error) {
-            setLoading(false)
             console.log(error.message)
         }
     }
@@ -61,12 +58,9 @@ const Cocktails = () => {
     }
     const fetchData = async () => {
         try {
-            setLoading(true)
             const data = (await axios.get("https://www.thecocktaildb.com/api/json/v1/1/random.php")).data?.drinks
             setData(data);
-            setLoading(false)
         } catch (error) {
-            setLoading(false)
             console.log(error.message)
         }
     }
