@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import moment from "moment"
 import LoadingModal from '../Components/LoadingModal/LoadingModal'
@@ -15,7 +15,7 @@ const CockTailRecipePage = () => {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log(first)
+            console.log(error.message);
         }
     }
     useEffect(() => {
