@@ -14,7 +14,9 @@ const getAllRecipes = async (req, res) => {
 const createRecipe = async (req, res) => {
   const recipe = new Recipe({
     title: req.body.title,
+    instruction: req.body.instruction,
     ingredients: req.body.ingredients,
+    selectedFile: req.body.selectedFile,
   });
 
   try {

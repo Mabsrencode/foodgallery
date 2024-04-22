@@ -8,6 +8,7 @@ const SingleCategoryPage = () => {
     const navigate = useNavigate()
     const { _id } = useParams();
     const [data, setData] = useState([]);
+    console.log(data)
     const [loading, setLoading] = useState(false);
     const [imageLoading, setImageLoading] = useState(true);
     const handleImageLoad = () => {
@@ -44,11 +45,13 @@ const SingleCategoryPage = () => {
                 setLoading(true);
                 const response1 = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`);
                 const response2 = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`);
+                const response3 = (await axios.get('http://localhost:4000/post-recipe/all-recipes'))
 
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data.drinks || [];
+                const data3 = response3.data || [];
 
-                setData([...data1, ...data2]);
+                setData([...data1, ...data2, ...data3]);
                 setTimeout(() => {
                     setLoading(false);
                 }, 2000);

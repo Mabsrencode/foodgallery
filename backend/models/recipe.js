@@ -5,8 +5,16 @@ const offersSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  instruction: {
+    type: String,
+    required: true,
+  },
   ingredients: {
     type: [String],
+    required: true,
+  },
+  selectedFile: {
+    type: String,
     required: true,
   },
 });
