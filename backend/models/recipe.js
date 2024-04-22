@@ -5,11 +5,11 @@ const offersSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  requirements: {
+  ingredients: {
     type: [String],
     required: true,
   },
 });
 
-const Offers = mongoose.model("Offers", offersSchema);
+const Offers = mongoose.model("recipe", offersSchema);
 module.exports = Offers;

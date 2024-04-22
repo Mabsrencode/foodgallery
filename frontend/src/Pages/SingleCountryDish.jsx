@@ -95,7 +95,7 @@ const SingleCountryDish = () => {
                                         {imageLoading && <ImageLoader />}
                                         <img onLoad={handleImageLoad} src={`${meal.strMealThumb}`} alt="" />
                                     </div>
-                                    <div className="absolute w-full bg-yellow-400 bottom-0 z-10 m-0 py-4 px-4 transition duration-300 ease-in-out">
+                                    <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition duration-300 ease-in-out">
                                         <h1 className={`text-yellow-900 ${meal.strMeal.length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal}</h1>
                                     </div>
                                 </div>

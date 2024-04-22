@@ -44,7 +44,7 @@ const BannerRandomRes = ({ data }) => {
                             </ul>
                             <div className='mt-6'>
 
-                                <Link to={`/meal/${recipe.idMeal}`} className='bg-yellow-300 py-3 px-6 rounded-full text-sm font-semibold text-yellow-900'>
+                                <Link to={`/meal/${recipe.idMeal}`} className='bg-yellow-300 hover:bg-yellow-200 py-3 px-6 rounded-full text-sm font-semibold text-yellow-900'>
                                     See More
                                 </Link>
                             </div>

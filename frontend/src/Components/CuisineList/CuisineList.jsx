@@ -39,7 +39,7 @@ const CuisineList = () => {
                             <li key={recipe.idMeal} className='relative h-52 w-full lg:w-80 shadow-xl bg-yellow-50 rounded-lg overflow-hidden'>
                                 <Link to={`/meal/${recipe.idMeal}`}>
                                     <img src={recipe.strMealThumb} alt={recipe.strMeal} className='w-full h-full object-cover rounded-lg hover:scale-110 transition-all' />
-                                    <h1 className='absolute right-0 bottom-0 text-yellow-900 w-full py-3 px-6 bg-yellow-400 '>{recipe.strMeal}</h1>
+                                    <h1 className='absolute right-0 bottom-0 text-yellow-900 w-full py-3 px-6 bg-yellow-300 '>{recipe.strMeal}</h1>
                                 </Link>
                             </li>
                         ))}

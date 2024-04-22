@@ -4,15 +4,22 @@ const { createSecretToken } = require("../utils/createSecretToken.js");
 // Register a new user
 const register = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.json({ message: "User already exists" });
+    const { username, email, password, cpassword } = req.body;
+    if (!username || !email || !password || !cpassword) {
+      return res.status(401).json({ message: "All fields are required" });
+    }
+    const existingUsername = await User.findOne({ username });
+    const existingEmail = await User.findOne({ email });
+    if (existingUsername || existingEmail) {
+      return res.status(400).json({ message: "User already exists" });
+    } else if (password !== cpassword) {
+      return res.status(400).json({ message: "Password are not match" });
     }
     const user = await User.create({
       username,
       email,
       password,
+      verified: true,
     });
     const token = createSecretToken(user._id.toString());
     res.cookie("token", token, {
@@ -25,6 +32,10 @@ const register = async (req, res, next) => {
     res.status(201).json({ message: "Registration successful", user });
   } catch (error) {
     next(error);
+    console.error("Registration failed:", error);
+    res
+      .status(500)
+      .json({ message: "Registration failed. Please try again later." });
   }
 };
 
@@ -33,20 +44,21 @@ const login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      return res.json({ message: "All fields are required" });
+      return res.status(401).json({ message: "All fields are required" });
     }
     const user = await User.findOne({ username });
-    const passwordMatch = await bcrypt.compare(password, user.password);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    } else if (!passwordMatch) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
     const userData = {
       username: user.username,
       email: user.email,
-      role: user.role,
       _id: user._id,
+      verified: user.verified,
     };
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
@@ -60,6 +72,7 @@ const login = async (req, res, next) => {
     res.status(201).json({ message: "Login successful", token, userData });
   } catch (error) {
     next(error);
+    res.status(500).json({ message: "Login failed. Please try again later." });
   }
 };
 

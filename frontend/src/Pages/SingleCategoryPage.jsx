@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Paginate from '../Components/Paginate/Paginate'
 import ImageLoader from '../Components/ImageLoader/ImageLoader'
 const SingleCategoryPage = () => {
+    const navigate = useNavigate()
     const { _id } = useParams();
     const [data, setData] = useState([]);
-    console.log(data)
     const [loading, setLoading] = useState(false);
     const [imageLoading, setImageLoading] = useState(true);
     const handleImageLoad = () => {
@@ -20,7 +20,6 @@ const SingleCategoryPage = () => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
-    console.log(currentPosts)
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
         setImageLoading(true);
@@ -36,7 +35,9 @@ const SingleCategoryPage = () => {
             setCurrentPage(currentPage + 1);
         }
     };
-
+    const handleBack = () => {
+        navigate(-1)
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -101,7 +102,12 @@ const SingleCategoryPage = () => {
                         </div>
                     </div>
                 </> : <>
-                    {currentPosts ? currentPosts?.map((meal) => (
+                    {currentPosts.length === 0 ? <div className="grid justify-center gap-6">
+                        <p className='text-4xl'>No {_id} Found.</p>
+                        <button onClick={handleBack} className='text-sm font-semibold mx-auto text-yellow-900 py-3 px-6 rounded-full bg-yellow-300 hover:bg-yellow-300'>
+                            Back to previous page.
+                        </button>
+                    </div> : currentPosts?.map((meal) => (
                         <Link to={(meal.idMeal && `/meal/${meal.idMeal}`) || (meal.idDrink && `/drink/${meal.idDrink}`)} key={meal.idMeal || meal.idDrink}>
                             <div className="cursor-pointer">
                                 <div className="group relative m-0 flex h-72 max-w-96 rounded-xl shadow-xl  sm:mx-auto sm:max-w-lg overflow-hidden">
@@ -109,22 +115,17 @@ const SingleCategoryPage = () => {
                                         {imageLoading && <ImageLoader />}
                                         <img onLoad={handleImageLoad} src={`${meal.strMealThumb || meal.strDrinkThumb}`} alt="" />
                                     </div>
-                                    <div className="absolute w-full bg-yellow-400 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
+                                    <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
                                         <h1 className={`text-yellow-900 ${(meal.strMeal || meal.strDrink).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.strDrink}</h1>
                                         <p className="text-sm text-gray-700 font-semibold">{meal.strArea}</p>
                                     </div>
                                 </div>
                             </div>
                         </Link>
-                    )) : <div className="grid justify-center gap-6">
-                        <p className='text-4xl'>No {_id} Found.</p>
-                        <Link to={"/categories"} className='underline text-sm font-semibold mx-auto text-gray-700 py-3 px-6 rounded-full bg-yellow-400'>
-                            Back to previous page.
-                        </Link>
-                    </div>}
+                    ))}
                 </>}
             </div>
-            {data ? (
+            {data && (
                 <div className="blog-content-section">
                     <Paginate
                         postsPerPage={postsPerPage}
@@ -135,8 +136,6 @@ const SingleCategoryPage = () => {
                         currentPage={currentPage}
                     />
                 </div>
-            ) : (
-                <></>
             )}
         </section>
     )

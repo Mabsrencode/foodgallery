@@ -118,7 +118,7 @@ const AllRecipePage = () => {
                             </p>
                             <Link className="inline-block" to={`/${category.strCategory === "Dessert" ? "cake" : category.strCategory}`}>
                                 <button
-                                    className="flex select-none items-center gap-2 rounded-full py-3 px-6 text-center align-middle  text-sm font-bold uppercase text-yellow-900 transition-all hover:bg-yellow-300 active:bg-yellow-400 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    className="flex select-none items-center gap-2 rounded-full py-3 px-6 text-center align-middle  text-sm font-bold uppercase text-yellow-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button"
                                 >
                                     Learn More

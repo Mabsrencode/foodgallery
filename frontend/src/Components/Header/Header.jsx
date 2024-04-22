@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Logo from "../../Assets/logo/logo.svg";
 import SignInForm from '../Forms/SignInForm';
 import SignUpForm from '../Forms/SignUpForm';
-
+import LogoutButton from '../LogoutButton/LogoutButton';
 const Header = () => {
+    const [data, setData] = useState()
+    const user = localStorage.getItem('fg-username')
+    const status = data?.status
     const [navClick, setNavClick] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [openSignInModal, setOpenSignInModal] = useState(false);
+    const [openSignInModal, setOpenSignInModal] = useState(user ? false : true);
     const [openSignUpModal, setOpenSignUpModal] = useState(false);
     const handleClick = () => {
         setNavClick(!navClick);
@@ -40,7 +44,16 @@ const Header = () => {
         document.getElementById("line2").style.rotate = "0deg";
     };
 
+    const validate = async () => {
+        const { data } = await axios.post(
+            "http://localhost:4000/auth",
+            {},
+            { withCredentials: true }
+        );
+        setData(data)
+    }
     useEffect(() => {
+        validate()
         const handleScroll = () => {
             if (window.scrollY > 100) {
                 setIsScrolled(true);
@@ -53,7 +66,7 @@ const Header = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [status, openSignInModal]);
 
     return (
         <>
@@ -72,9 +85,14 @@ const Header = () => {
                             </button>
                         </div>
 
-                        <div className={`${navClick ? "scale-100 h-full p-6 md:mt-12" : "scale-0 h-0"} lg:mt-0 origin-top transition-all w-full lg:scale-100  lg:flex flex-wrap justify-end items-center space-y-6  rounded-xl  bg-yellow-100 lg:space-y-0 lg:p-0 lg:flex-nowrap lg:bg-transparent lg:w-7/12`}>
+                        <div className={`${navClick ? "scale-100 h-full p-6 md:mt-12" : "scale-0 h-0"} lg:mt-0 origin-top transition-all w-full lg:scale-100  lg:flex flex-wrap justify-end items-center space-y-6  rounded-xl  bg-yellow-200 lg:space-y-0 lg:p-0 lg:flex-nowrap lg:bg-transparent lg:w-7/12`}>
                             <div className="text-gray-600 lg:pr-4">
                                 <ul className="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0 text-nowrap">
+                                    {status && <li>
+                                        <Link onClick={handleClick} to={"/post-recipe"} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
+                                            Post Your Recipe
+                                        </Link>
+                                    </li>}
                                     <li>
                                         <Link onClick={handleClick} to={"/categories"} className="block md:px-4 transition hover:text-yellow-700 focus:text-yellow-700">
                                             All Categories
@@ -103,18 +121,18 @@ const Header = () => {
                                 </ul>
                             </div>
 
-                            <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l md:text-nowrap">
-                                <button onClick={handleOpenSignUpForm} type="button" title="Sign Up" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
+                            {status ? <><LogoutButton /></> : <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l md:text-nowrap">
+                                <button onClick={handleOpenSignUpForm} type="button" title="Sign Up" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-200 sm:w-max">
                                     <p className="block text-yellow-800 font-semibold text-sm">
                                         Sign up
                                     </p>
                                 </button>
-                                <button onClick={handleOpenSignInForm} type="button" title="Login" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                                <button onClick={handleOpenSignInForm} type="button" title="Login" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-200 active:bg-yellow-300 focus:bg-yellow-300 sm:w-max">
                                     <p className="block text-yellow-900 font-semibold text-sm">
                                         Sign in
                                     </p>
                                 </button>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>

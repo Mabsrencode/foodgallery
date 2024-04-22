@@ -98,7 +98,7 @@ const CocktailSingleCategoryList = () => {
                                         {imageLoading && <ImageLoader />}
                                         <img onLoad={handleImageLoad} src={`${drink.strDrinkThumb}`} alt="" />
                                     </div>
-                                    <div className="absolute w-full bg-yellow-400 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
+                                    <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
                                         <h1 className={`text-yellow-900 ${drink.strDrink.length > 30 ? "text-lg" : "text-2xl"}`}>{drink.strDrink}</h1>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@ const CocktailSingleCategoryList = () => {
                         </Link>
                     )) : <div className="grid justify-center gap-6">
                         <p className='text-4xl'>No {_id} Found.</p>
-                        <Link to={"/categories"} className='underline text-sm font-semibold mx-auto text-gray-700 py-3 px-6 rounded-full bg-yellow-400'>
+                        <Link to={"/categories"} className='underline text-sm font-semibold mx-auto text-gray-700 py-3 px-6 rounded-full bg-yellow-300'>
                             Back to previous page.
                         </Link>
                     </div>}

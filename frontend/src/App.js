@@ -12,6 +12,8 @@ import NoPage from "./Pages/NoPage.jsx";
 import Cocktails from "./Pages/Cocktails.jsx";
 import CockTailRecipePage from "./Pages/CockTailRecipePage.jsx";
 import CocktailSingleCategoryList from "./Pages/CocktailSingleCategoryList.jsx";
+import { UserProvider } from "./Context/useContext.js";
+import PostRecipePage from "./Pages/PostRecipePage.jsx";
 function App() {
   return (
     <div className="App">
@@ -33,6 +35,9 @@ function App() {
               element={<CocktailSingleCategoryList />}
             />
             <Route path="*" element={<NoPage />} />
+            <Route element={<UserProvider />}>
+              <Route path="/post-recipe" element={<PostRecipePage />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

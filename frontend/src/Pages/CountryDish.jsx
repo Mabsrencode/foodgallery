@@ -21,13 +21,13 @@ const CountryDish = () => {
     }, [])
     return (
         <>
-            {loading ? <LoadingModal /> : <section className='pt-[10%]'>
+            {loading ? <LoadingModal /> : <section className='pt-[10%] w-full'>
                 <h1 className='text-7xl font-semibold text-yellow-900 text-center my-24'>Countries</h1>
-                <div className='flex container items-center justify-center flex-wrap gap-12 mx-auto'>
+                <div className='flex container items-center flex-col w-full px-12 md:flex-row justify-center flex-wrap gap-12 mx-auto'>
                     {data?.map((country, key) => (
-                        <Link to={`/country/${country.strArea}`} key={key}>
-                            <div className='bg-yellow-400 py-3 px-6 rounded-full hover:bg-yellow-300'>
-                                <h1>{country.strArea}</h1>
+                        <Link to={`/country/${country.strArea}`} key={key} className='w-full md:w-auto text-center'>
+                            <div className='bg-yellow-300 py-3 px-6 rounded-full hover:bg-yellow-200'>
+                                <h1 >{country.strArea}</h1>
                             </div>
                         </Link>
                     ))}

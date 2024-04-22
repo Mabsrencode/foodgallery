@@ -109,7 +109,7 @@ const NewRecipes = () => {
                                         {imageLoading && <ImageLoader />}
                                         <img onLoad={handleImageLoad} src={`${meal.thumbnail_url}`} alt="" />
                                     </div>
-                                    <div className="absolute w-full bg-yellow-400 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
+                                    <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
                                         <h1 className={`text-yellow-900 ${meal.name.length > 20 ? "text-lg" : "text-2xl"}`}>{meal.name}</h1>
                                         <p className="text-sm text-gray-700 font-semibold">{meal.country}</p>
                                     </div>
@@ -118,7 +118,7 @@ const NewRecipes = () => {
                         </Link>
                     )) : <div className="grid justify-center gap-6 pt-[10%]">
                         <p className='text-4xl'>No Recipe Found.</p>
-                        <Link to={"/"} className='underline text-sm font-semibold mx-auto text-gray-700 py-3 px-6 rounded-full bg-yellow-400'>
+                        <Link to={"/"} className='underline text-sm font-semibold mx-auto text-gray-700 py-3 px-6 rounded-full bg-yellow-300'>
                             Back to Home page.
                         </Link>
                     </div>}

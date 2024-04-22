@@ -7,8 +7,6 @@ import CockTailCategory from '../Components/CocktailCategory/CockTailCategory'
 const Cocktails = () => {
     const [data, setData] = useState()
     const [cocktailData, setCocktailData] = useState()
-    console.log(cocktailData)
-
     const navigate = useNavigate();
     const [searchData, setSearchData] = useState();
     const [searchDataValue, setSearchDataValue] = useState();
@@ -90,11 +88,11 @@ const Cocktails = () => {
                                 </div>
                             </div>
                             <p className="my-8 text-gray-700 lg:w-10/12">Step into a world where flavor reigns supreme. Whether you're craving comfort food classics, exploring exotic cuisines, or seeking healthy alternatives, we've got you covered.</p>
-                            <Link to={"/categories"} className='py-3 px-6 text-center text-yellow-900 font-semibold text-sm rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300'>
+                            <Link to={"/categories"} className='py-3 px-6 text-center text-yellow-900 font-semibold text-sm rounded-full transition bg-yellow-300 hover:bg-yellow-300'>
                                 See More
                             </Link>
                         </div>
-                        <img src={HeroImage} className="hidden lg:block ml-auto -mb-24 lg:-mb-56 lg:w-72 rotate-[340deg]" alt="food illustration" />
+                        <img src={HeroImage} className="hidden lg:block ml-auto -mb-24 lg:-mb-56 lg:w-72 rotate-[340deg] mr-12" alt="food illustration" />
                     </div>
                 </div>
             </section>
