@@ -17,6 +17,9 @@ const offersSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  userId: {
+    type: String,
+  },
 });
 
 const Offers = mongoose.model("recipe", offersSchema);

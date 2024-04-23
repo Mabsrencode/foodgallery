@@ -10,13 +10,25 @@ const getAllRecipes = async (req, res) => {
   }
 };
 
+const getAllRecipeFromUser = async (req, res) => {
+  const userId = req.query.userId;
+  try {
+    const recipes = await Recipe.find({ userId: userId });
+    res.json(recipes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // Create a job offer
 const createRecipe = async (req, res) => {
+  const { title, instruction, ingredients, selectedFile, userId } = req.body;
   const recipe = new Recipe({
-    title: req.body.title,
-    instruction: req.body.instruction,
-    ingredients: req.body.ingredients,
-    selectedFile: req.body.selectedFile,
+    title: title,
+    instruction: instruction,
+    ingredients: ingredients,
+    selectedFile: selectedFile,
+    userId: userId,
   });
 
   try {
@@ -53,6 +65,7 @@ const deleteRecipe = async (req, res) => {
 
 module.exports = {
   getAllRecipes,
+  getAllRecipeFromUser,
   createRecipe,
   updateRecipe,
   deleteRecipe,

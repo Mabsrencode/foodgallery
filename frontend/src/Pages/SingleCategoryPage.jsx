@@ -111,7 +111,7 @@ const SingleCategoryPage = () => {
                             Back to previous page.
                         </button>
                     </div> : currentPosts?.map((meal) => (
-                        <Link to={(meal.idMeal && `/meal/${meal.idMeal}`) || (meal.idDrink && `/drink/${meal.idDrink}`)} key={meal.idMeal || meal.idDrink}>
+                        <Link to={(meal.idMeal && `/meal/${meal.idMeal || meal._id}`) || (meal.idDrink && `/drink/${meal.idDrink}`)} key={meal.idMeal || meal.idDrink || meal._id}>
                             <div className="cursor-pointer">
                                 <div className="group relative m-0 flex h-72 max-w-96 rounded-xl shadow-xl  sm:mx-auto sm:max-w-lg overflow-hidden">
                                     <div className="relative z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 transition-all hover:scale-110">
@@ -119,7 +119,7 @@ const SingleCategoryPage = () => {
                                         <img onLoad={handleImageLoad} src={`${meal.strMealThumb || meal.strDrinkThumb}`} alt="" />
                                     </div>
                                     <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
-                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal.strDrink).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.strDrink}</h1>
+                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal.strDrink || meal.title).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.strDrink}</h1>
                                         <p className="text-sm text-gray-700 font-semibold">{meal.strArea}</p>
                                     </div>
                                 </div>
