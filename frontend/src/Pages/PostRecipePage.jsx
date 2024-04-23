@@ -6,7 +6,6 @@ import LoadingModal from '../Components/LoadingModal/LoadingModal'
 const PostRecipePage = () => {
     const user = useUser()
     const [recipeData, setRecipeData] = useState([]);
-    console.log(recipeData.length)
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
@@ -128,7 +127,7 @@ const PostRecipePage = () => {
                         </div>
                         <div className="mt-2">
                             <label htmlFor="instruction" className='font-semibold text-sm'>Instruction</label>
-                            <textarea className='bg-yellow-50 border-2 border-yellow-900 text-gray-900 sm:text-sm rounded-lg focus:outline-yellow-400 focus:border-yellow-900 block w-full p-2.5' value={formData.instruction} onChange={handleChange} name="instruction" id="instruction" cols="30" rows="5"></textarea>
+                            <textarea placeholder='Instructions' className='bg-yellow-50 border-2 border-yellow-900 text-gray-900 sm:text-sm rounded-lg focus:outline-yellow-400 focus:border-yellow-900 block w-full p-2.5' value={formData.instruction} onChange={handleChange} name="instruction" id="instruction" cols="30" rows="5"></textarea>
                         </div>
                         <div className="flex flex-col mt-2 gap-2">
                             {formData.ingredients.map((requirement, index) => (
