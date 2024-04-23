@@ -46,7 +46,7 @@ const Header = () => {
 
     const validate = async () => {
         const { data } = await axios.post(
-            "http://localhost:4000/auth",
+            "/auth",
             {},
             { withCredentials: true }
         );

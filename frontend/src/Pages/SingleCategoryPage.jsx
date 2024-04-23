@@ -45,7 +45,7 @@ const SingleCategoryPage = () => {
                 setLoading(true);
                 const response1 = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`);
                 const response2 = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`);
-                const response3 = (await axios.get('http://localhost:4000/post-recipe/all-recipes'))
+                const response3 = (await axios.get('/post-recipe/all-recipes'))
 
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data.drinks || [];

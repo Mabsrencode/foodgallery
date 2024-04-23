@@ -14,7 +14,7 @@ const SignInForm = ({ open, setOpen }) => {
     const handleSignIn = async () => {
         try {
             setLoading(true)
-            const response = (await axios.post("http://localhost:4000/auth/login", { username, password }, { withCredentials: true }))
+            const response = (await axios.post("/auth/login", { username, password }, { withCredentials: true }))
             setData(response?.data?.message)
             setLoading(false)
             setError(false)

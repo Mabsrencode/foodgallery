@@ -14,11 +14,7 @@ export const UserProvider = () => {
     const verifyCookie = async () => {
       setLoading(true);
 
-      const { data } = await axios.post(
-        "http://localhost:4000/auth",
-        {},
-        { withCredentials: true }
-      );
+      const { data } = await axios.post("/auth", {}, { withCredentials: true });
       if (!data.status) {
         return navigate("/");
       }

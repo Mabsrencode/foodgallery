@@ -19,10 +19,10 @@ const PostRecipePage = () => {
     const fetchRecipe = async () => {
         try {
             setLoading(true)
-            const response = (await axios.get('http://localhost:4000/post-recipe/post', {
+            const response = (await axios.get('/post-recipe/post', {
                 params: { userId: user?._id }
             }))
-            setRecipeData(response.data);
+            setRecipeData(response?.data);
             setLoading(false);
         } catch (error) {
             console.log(error.message)
@@ -56,7 +56,7 @@ const PostRecipePage = () => {
     const handleSubmit = e => {
         e.preventDefault();
         if (selectedRecipe) {
-            axios.put(`http://localhost:4000/post-recipe/update-recipe/${selectedRecipe}`, formData)
+            axios.put(`/post-recipe/update-recipe/${selectedRecipe}`, formData)
                 .then(() => {
                     setFormData({
                         title: '',
@@ -71,7 +71,7 @@ const PostRecipePage = () => {
                     console.error('Error updating recipe:', error);
                 });
         } else {
-            axios.post('http://localhost:4000/post-recipe/create-recipe', formData)
+            axios.post('/post-recipe/create-recipe', formData)
                 .then(() => {
                     setFormData({
                         title: '',
@@ -88,7 +88,7 @@ const PostRecipePage = () => {
     };
 
     const handleDelete = id => {
-        axios.delete(`http://localhost:4000/post-recipe/delete-recipe/${id}`)
+        axios.delete(`/post-recipe/delete-recipe/${id}`)
             .then(() => {
                 fetchRecipe();
             })
@@ -165,38 +165,14 @@ const PostRecipePage = () => {
                 </div>
                 <div className='h-full w-full'>
                     {loading ? <LoadingModal /> : <>
-                        {recipeData && <>
+                        {Array.isArray(recipeData) && recipeData.length > 0 && <>
                             {recipeData?.map((recipe, index) => (
                                 <div key={index} className='bg-yellow-100 rounded-lg mb-6 shadow-lg'>
                                     <div className="container flex flex-col-reverse gap-6 px-6 mx-auto lg:h-[32rem]">
                                         <div className="">
-                                            {recipe.strYoutube && <Link to={`${recipe.strYoutube}`} className='hover:bg-yellow-200 block mb-4 bg-yellow-300 px-6 py-2 text-center rounded-lg font-semibold text-yellow-900'>
-                                                Watch on Youtube how to make this recipe.
-                                            </Link>}
-                                            {recipe.strSource && <Link to={recipe.strSource} className='hover:bg-yellow-200 block truncate mb-4 bg-yellow-300 px-6 py-2 text-center rounded-lg font-semibold text-yellow-900'>
-                                                Source
-                                            </Link>}
                                             <h1 className="text-3xl font-bold tracking-wide text-yellow-900 lg:text-5xl">
                                                 {recipe.title}
                                             </h1>
-
-                                            {/* <ul className="mt-8 space-y-5">
-                                                <li className="flex items-center -mx-2 text-gray-700">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-
-                                                    <p className="mx-2">{recipe.strArea}</p>
-                                                </li>
-
-                                                <li className="flex items-center -mx-2 text-gray-700">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-
-                                                    <p className="mx-2">{recipe.strCategory}</p>
-                                                </li>
-                                            </ul> */}
                                         </div>
 
                                         <div className="flex items-center justify-center w-full h-96 overflow-hidden rounded-lg ">
@@ -211,7 +187,7 @@ const PostRecipePage = () => {
                                         <div className='w-full lg:w-1/2'>
                                             <h1 className='text-xl text-yellow-900 font-bold'>INGREDIENTS</h1>
                                             <ul className='mt-6'>
-                                                {recipe.ingredients.map((requirement, index) => (
+                                                {recipe?.ingredients?.map((requirement, index) => (
                                                     <li key={index} className='mt-4 flex gap-4'> <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                     </svg>{requirement}</li>
@@ -227,7 +203,7 @@ const PostRecipePage = () => {
                             ))
                             }</>}
                     </>}
-                    {recipeData.length === 0 && <><div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div></>}
+                    {recipeData?.length === 0 && <><div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div></>}
                 </div>
             </div>
         </section>

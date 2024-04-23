@@ -16,7 +16,7 @@ const SignUpForm = ({ open, setOpen }) => {
     const handleSubmit = async () => {
         try {
             setLoading(true)
-            const response = (await axios.post('http://localhost:4000/auth/register', {
+            const response = (await axios.post('/auth/register', {
                 username,
                 email,
                 password,
