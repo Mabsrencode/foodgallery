@@ -6,6 +6,7 @@ import LoadingModal from '../Components/LoadingModal/LoadingModal'
 const PostRecipePage = () => {
     const user = useUser()
     const [recipeData, setRecipeData] = useState([]);
+    console.log(recipeData)
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
@@ -164,46 +165,45 @@ const PostRecipePage = () => {
                     </form>
                 </div>
                 <div className='h-full w-full'>
-                    {loading ? <LoadingModal /> : <>
-                        {Array.isArray(recipeData) && recipeData.length > 0 && <>
-                            {recipeData?.map((recipe, index) => (
-                                <div key={index} className='bg-yellow-100 rounded-lg mb-6 shadow-lg'>
-                                    <div className="container flex flex-col-reverse gap-6 px-6 mx-auto lg:h-[32rem]">
-                                        <div className="">
-                                            <h1 className="text-3xl font-bold tracking-wide text-yellow-900 lg:text-5xl">
-                                                {recipe.title}
-                                            </h1>
-                                        </div>
+                    {loading ? (<LoadingModal />) : (
+                        recipeData.length > 0 && (recipeData?.map((recipe, index) => (
+                            <div key={index} className='bg-yellow-100 rounded-lg mb-6 shadow-lg'>
+                                <div className="container flex flex-col-reverse gap-6 px-6 mx-auto lg:h-[32rem]">
+                                    <div className="">
+                                        <h1 className="text-3xl font-bold tracking-wide text-yellow-900 lg:text-5xl">
+                                            {recipe.title}
+                                        </h1>
+                                    </div>
 
-                                        <div className="flex items-center justify-center w-full h-96 overflow-hidden rounded-lg ">
-                                            <img className="object-cover w-full h-[300px] sm:h-full mx-auto rounded-md lg:max-w-2xl" src={recipe.selectedFile} alt="glasses " />
-                                        </div>
-                                    </div>
-                                    <div className='container flex flex-col-reverse gap-12 px-6 py-10 mx-auto '>
-                                        <div className='w-full lg:w-1/2'>
-                                            <h1 className='text-xl text-yellow-900 font-bold'>INSTRUCTIONS</h1>
-                                            <p className='text-justify text-gray-700 mt-6'>{recipe.instruction}</p>
-                                        </div>
-                                        <div className='w-full lg:w-1/2'>
-                                            <h1 className='text-xl text-yellow-900 font-bold'>INGREDIENTS</h1>
-                                            <ul className='mt-6'>
-                                                {recipe?.ingredients?.map((requirement, index) => (
-                                                    <li key={index} className='mt-4 flex gap-4'> <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>{requirement}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className='flex gap-4 px-6 pb-6'>
-                                        <button className='mt-4 text-yellow-900 font-semibold rounded-full transition-all hover:bg-yellow-200 py-2 bg-yellow-300 px-6 md:mx-auto w-full' onClick={() => handleEdit(recipe)}>Edit</button>
-                                        <button className='mt-4 text-yellow-900 font-semibold rounded-full transition-all hover:bg-yellow-200 py-2 bg-yellow-300 px-6 md:mx-auto w-full' onClick={() => handleDelete(recipe._id)}>Delete</button>
+                                    <div className="flex items-center justify-center w-full h-96 overflow-hidden rounded-lg ">
+                                        <img className="object-cover w-full h-[300px] sm:h-full mx-auto rounded-md lg:max-w-2xl" src={recipe.selectedFile} alt="glasses " />
                                     </div>
                                 </div>
-                            ))
-                            }</>}
-                    </>}
-                    {recipeData?.length === 0 && <><div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div></>}
+                                <div className='container flex flex-col-reverse gap-12 px-6 py-10 mx-auto '>
+                                    <div className='w-full lg:w-1/2'>
+                                        <h1 className='text-xl text-yellow-900 font-bold'>INSTRUCTIONS</h1>
+                                        <p className='text-justify text-gray-700 mt-6'>{recipe.instruction}</p>
+                                    </div>
+                                    <div className='w-full lg:w-1/2'>
+                                        <h1 className='text-xl text-yellow-900 font-bold'>INGREDIENTS</h1>
+                                        <ul className='mt-6'>
+                                            {recipe?.ingredients?.map((requirement, index) => (
+                                                <li key={index} className='mt-4 flex gap-4'> <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>{requirement}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className='flex gap-4 px-6 pb-6'>
+                                    <button className='mt-4 text-yellow-900 font-semibold rounded-full transition-all hover:bg-yellow-200 py-2 bg-yellow-300 px-6 md:mx-auto w-full' onClick={() => handleEdit(recipe)}>Edit</button>
+                                    <button className='mt-4 text-yellow-900 font-semibold rounded-full transition-all hover:bg-yellow-200 py-2 bg-yellow-300 px-6 md:mx-auto w-full' onClick={() => handleDelete(recipe._id)}>Delete</button>
+                                </div>
+                            </div>
+                        ))
+                        )
+                    )}
+                    {recipeData?.length === 0 && (<div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div>)}
                 </div>
             </div>
         </section>
