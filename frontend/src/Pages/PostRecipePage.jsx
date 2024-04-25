@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import FileBase from "react-file-base64"
 import { useUser } from '../Context/useContext'
@@ -6,7 +6,6 @@ import LoadingModal from '../Components/LoadingModal/LoadingModal'
 const PostRecipePage = () => {
     const user = useUser()
     const [recipeData, setRecipeData] = useState([]);
-    console.log(recipeData)
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
@@ -17,22 +16,27 @@ const PostRecipePage = () => {
     });
     const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-    const fetchRecipe = async () => {
+    const fetchRecipe = useCallback(async () => {
         try {
-            setLoading(true)
-            const response = (await axios.get('/post-recipe/post', {
-                params: { userId: user?._id }
-            }))
-            setRecipeData(response?.data);
+            setLoading(true);
+            const timestamp = Date.now();
+            const response = await axios.get('/post-recipe/post', {
+                params: {
+                    userId: user?._id,
+                    timestamp: timestamp
+                }
+            }, { withCredentials: true });
+            setRecipeData(response.data);
             setLoading(false);
         } catch (error) {
-            console.log(error.message)
-            setLoading(false)
+            console.log(error.message);
+            setLoading(false);
         }
-    };
+    }, [user]);
+
     useEffect(() => {
         fetchRecipe();
-    }, []);
+    }, [fetchRecipe]);
 
 
     const handleChange = e => {
@@ -111,7 +115,7 @@ const PostRecipePage = () => {
     return (
         <section className="pt-24 md:pt-[10%]">
             <div className="flex justify-center gap-12 flex-col lg:flex-row container m-auto px-6 md:px-12 lg:px-7">
-                <div className='rounded-lg  h-max bg-white p-4 shadow-lg w-full lg:w-1/1 lg:sticky lg:top-[132px]'>
+                <div className='rounded-lg  h-max bg-white p-4 shadow-lg w-full lg:w-1/1 lg:sticky lg:top-[20%]'>
                     <h1 className='text-base md:text-xl text-yellow-900'>Post your recipe</h1>
                     <form onSubmit={handleSubmit} className='flex flex-col'>
                         <div className="mt-2">
@@ -155,7 +159,8 @@ const PostRecipePage = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="mt-2">
+                        <div className="mt-2 flex flex-col gap-2">
+                            <p className='font-semibold text-sm'>Upload Image</p>
                             <FileBase multiple={false} value={formData.selectedFile} name='selectedFile' type="file" onDone={({ base64 }) => setFormData({ ...formData, selectedFile: base64 })} />
                         </div>
                         <div className="flex flex-col w-full">
@@ -166,8 +171,8 @@ const PostRecipePage = () => {
                 </div>
                 <div className='h-full w-full'>
                     {loading ? (<LoadingModal />) : (
-                        recipeData.length > 0 && (recipeData?.map((recipe, index) => (
-                            <div key={index} className='bg-yellow-100 rounded-lg mb-6 shadow-lg'>
+                        recipeData.length > 0 ? (recipeData.map((recipe) => (
+                            <div key={recipe._id} className='bg-yellow-100 rounded-lg mb-6 shadow-lg'>
                                 <div className="container flex flex-col-reverse gap-6 px-6 mx-auto lg:h-[32rem]">
                                     <div className="">
                                         <h1 className="text-3xl font-bold tracking-wide text-yellow-900 lg:text-5xl">
@@ -201,9 +206,9 @@ const PostRecipePage = () => {
                                 </div>
                             </div>
                         ))
-                        )
+                        ) : (recipeData?.length === 0 && (<div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div>))
                     )}
-                    {recipeData?.length === 0 && (<div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div>)}
+
                 </div>
             </div>
         </section>

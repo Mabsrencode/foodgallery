@@ -6,7 +6,6 @@ import SignUpForm from './SignUpForm'
 const SignInForm = ({ open, setOpen }) => {
     const [openModalSignUp, setOpenModalSignUp] = useState(false)
     const [data, setData] = useState()
-
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [username, setUsername] = useState()
@@ -18,8 +17,9 @@ const SignInForm = ({ open, setOpen }) => {
             setData(response?.data?.message)
             setLoading(false)
             setError(false)
-            localStorage.setItem("fg-username", username);
-            window.location.reload()
+            setTimeout(() => {
+                setOpen(false)
+            }, 1000)
         } catch (error) {
             setData(error?.response?.data?.message || error.message)
             setLoading(false)

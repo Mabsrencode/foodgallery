@@ -14,7 +14,7 @@ const getAllRecipeFromUser = async (req, res) => {
   const userId = req.query.userId;
   try {
     const recipes = await Recipe.find({ userId: userId });
-    res.json(recipes);
+    res.status(200).json(recipes);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
