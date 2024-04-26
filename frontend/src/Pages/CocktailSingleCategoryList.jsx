@@ -33,18 +33,18 @@ const CocktailSingleCategoryList = () => {
             setCurrentPage(currentPage + 1);
         }
     };
-    const fetchCocktailData = async () => {
-        try {
-            setLoading(true)
-            const data = (await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${_id}`)).data.drinks
-            setData(data)
-            setLoading(false)
-        } catch (error) {
-            console.log(error.message)
-            setLoading(false)
-        }
-    }
     useEffect(() => {
+        const fetchCocktailData = async () => {
+            try {
+                setLoading(true)
+                const data = (await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${_id}`)).data.drinks
+                setData(data)
+                setLoading(false)
+            } catch (error) {
+                console.log(error.message)
+                setLoading(false)
+            }
+        }
         fetchCocktailData();
     }, [_id])
     return (
