@@ -69,7 +69,7 @@ const Home = () => {
                                         <i className="fa-solid fa-magnifying-glass text-xl"></i>
                                     </button>
                                     {searchData?.length > 0 &&
-                                        <ul id='search-result' className={`${isScrolled ? "hidden" : "block"} absolute w-full top-24 -left-[1px] bg-yellow-300 max-h-[300px] overflow-y-scroll rounded-xl shadow-lg`}>
+                                        <ul id='search-result' className={`${isScrolled ? "hidden" : "block"} absolute w-full z-30 top-24 -left-[1px] bg-yellow-300 max-h-[300px] overflow-y-scroll rounded-xl shadow-lg`}>
                                             {loadingSearch ? <p className='px-6 py-2 font-semibold text-xs text-gray-700'>Searching...</p> : <>{searchDataValue ? searchDataValue.map((search) => (
                                                 <Link to={`/meal/${search.idMeal}`} key={search.idMeal}><li className='px-6 py-2 transition-all hover:bg-white'><span className='text-yellow-900'>{search.strMeal}</span><p className='font-semibold text-xs text-gray-700'>{search.strArea}</p></li></Link>
                                             )) : <p className='px-6 py-2 font-semibold text-xs text-gray-700'>No search found.</p>}</>}

@@ -5,7 +5,8 @@ import { useUser } from '../Context/useContext'
 import LoadingModal from '../Components/LoadingModal/LoadingModal'
 const PostRecipePage = () => {
     const user = useUser()
-    const [recipeData, setRecipeData] = useState([]);
+    const [recipeData, setRecipeData] = useState();
+    console.log(recipeData)
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
@@ -20,13 +21,13 @@ const PostRecipePage = () => {
         try {
             setLoading(true);
             const timestamp = Date.now();
-            const response = await axios.get('/post-recipe/post', {
+            const response = (await axios.get('/post-recipe/post', {
                 params: {
                     userId: user?._id,
                     timestamp: timestamp
                 }
-            }, { withCredentials: true });
-            setRecipeData(response.data);
+            }))?.data;
+            setRecipeData(response);
             setLoading(false);
         } catch (error) {
             console.log(error.message);
@@ -171,7 +172,7 @@ const PostRecipePage = () => {
                 </div>
                 <div className='h-full w-full'>
                     {loading ? (<LoadingModal />) : (
-                        recipeData.length > 0 ? (recipeData.map((recipe) => (
+                        recipeData?.length > 0 ? recipeData?.map((recipe) => (
                             <div key={recipe._id} className='bg-yellow-100 rounded-lg mb-6 shadow-lg'>
                                 <div className="container flex flex-col-reverse gap-6 px-6 mx-auto lg:h-[32rem]">
                                     <div className="">
@@ -205,10 +206,9 @@ const PostRecipePage = () => {
                                     <button className='mt-4 text-yellow-900 font-semibold rounded-full transition-all hover:bg-yellow-200 py-2 bg-yellow-300 px-6 md:mx-auto w-full' onClick={() => handleDelete(recipe._id)}>Delete</button>
                                 </div>
                             </div>
-                        ))
-                        ) : (recipeData?.length === 0 && (<div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div>))
-                    )}
-
+                        )) : <><div><h1 className='font-bold text-4xl text-yellow-900'>No Recipe Posted.</h1></div></>
+                    )
+                    }
                 </div>
             </div>
         </section>
