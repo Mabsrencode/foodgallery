@@ -16,7 +16,7 @@ export const UserProvider = () => {
 
       const { data } = await axios.post("/auth", {}, { withCredentials: true });
       if (!data.status) {
-        return navigate("/");
+        return navigate("/") && window.location.reload();
       }
       setUser(data);
       localStorage.setItem("fg-username", data.user);

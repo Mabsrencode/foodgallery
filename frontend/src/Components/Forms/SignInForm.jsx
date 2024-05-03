@@ -14,12 +14,16 @@ const SignInForm = ({ open, setOpen }) => {
         try {
             setLoading(true)
             const response = (await axios.post("/auth/login", { username, password }, { withCredentials: true }))
+            console.log(response)
             setData(response?.data?.message)
             setLoading(false)
             setError(false)
+            localStorage.setItem("fg-username", response.data?.userData.username)
             setTimeout(() => {
                 setOpen(false)
+                window.location.reload()
             }, 1000)
+
         } catch (error) {
             setData(error?.response?.data?.message || error.message)
             setLoading(false)

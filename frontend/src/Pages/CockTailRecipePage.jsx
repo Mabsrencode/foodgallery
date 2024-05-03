@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import moment from "moment"
@@ -7,7 +7,7 @@ const CockTailRecipePage = () => {
     const { _id } = useParams()
     const [data, setData] = useState();
     const [loading, setLoading] = useState(false);
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
             setLoading(true);
             const data = (await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${_id}`)).data.drinks
@@ -17,10 +17,10 @@ const CockTailRecipePage = () => {
             setLoading(false);
             console.log(error.message);
         }
-    }
+    }, [_id])
     useEffect(() => {
         fetchData();
-    }, [_id])
+    }, [fetchData])
     return (
         <section className='pt-[10%]'>
             {loading ? <LoadingModal /> : <>

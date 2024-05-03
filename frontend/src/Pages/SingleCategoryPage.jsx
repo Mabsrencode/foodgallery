@@ -8,7 +8,6 @@ const SingleCategoryPage = () => {
     const navigate = useNavigate()
     const { _id } = useParams();
     const [data, setData] = useState([]);
-    console.log(data)
     const [loading, setLoading] = useState(false);
     const [imageLoading, setImageLoading] = useState(true);
     const handleImageLoad = () => {
@@ -45,8 +44,9 @@ const SingleCategoryPage = () => {
                 setLoading(true);
                 const response1 = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`);
                 const response2 = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`);
-                const response3 = (await axios.get('/post-recipe/all-recipes'))
-
+                const response3 = await axios.get(`/post-recipe/category?query=${_id}`);
+                // const response2 = (await axios.get(`/post-recipe/search?query=${searchData}`));
+                console.log(response3)
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data.drinks || [];
                 const data3 = response3.data || [];
@@ -111,16 +111,16 @@ const SingleCategoryPage = () => {
                             Back to previous page.
                         </button>
                     </div> : currentPosts?.map((meal) => (
-                        <Link to={(meal.idMeal && `/meal/${meal.idMeal || meal._id}`) || (meal.idDrink && `/drink/${meal.idDrink}`)} key={meal.idMeal || meal.idDrink || meal._id}>
+                        <Link to={(meal.idMeal && `/meal/${meal.idMeal}`) || (meal.idDrink && `/drink/${meal.idDrink}`) || (meal._id && `/new-post/${meal._id}`)} key={meal.idMeal || meal.idDrink || meal._id}>
                             <div className="cursor-pointer">
                                 <div className="group relative m-0 flex h-72 max-w-96 rounded-xl shadow-xl  sm:mx-auto sm:max-w-lg overflow-hidden">
                                     <div className="relative z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 transition-all hover:scale-110">
                                         {imageLoading && <ImageLoader />}
-                                        <img onLoad={handleImageLoad} src={`${meal.strMealThumb || meal.strDrinkThumb}`} alt="" />
+                                        <img onLoad={handleImageLoad} src={`${meal.strMealThumb || meal.strDrinkThumb || meal.selectedFile}`} alt="" />
                                     </div>
                                     <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition-all rounded-xl">
-                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal.strDrink || meal.title).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.strDrink}</h1>
-                                        <p className="text-sm text-gray-700 font-semibold">{meal.strArea}</p>
+                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal.strDrink || meal.title).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.strDrink || meal.title}</h1>
+                                        <p className="text-sm text-gray-700 font-semibold">{meal.strArea || meal.country}</p>
                                     </div>
                                 </div>
                             </div>

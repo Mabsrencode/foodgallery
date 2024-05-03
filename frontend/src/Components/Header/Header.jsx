@@ -66,7 +66,7 @@ const Header = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [status, openSignInModal]);
+    }, [status]);
 
     return (
         <>

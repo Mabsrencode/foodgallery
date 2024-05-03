@@ -38,8 +38,12 @@ const SingleCountryDish = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const data = (await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${_id}`)).data.meals
-                setData(data)
+                const response1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${_id}`))
+                const response2 = await axios.get(`/post-recipe/country?query=${_id}`);
+                console.log(response2)
+                const data1 = response1.data.meals || [];
+                const data2 = response2.data || [];
+                setData([...data1, ...data2]);
                 setTimeout(() => {
                     setLoading(false);
                 }, 2000)
@@ -88,15 +92,15 @@ const SingleCountryDish = () => {
                 </> : <>
                     {currentPosts?.map((meal) => (
 
-                        <Link to={`/meal/${meal.idMeal}`} key={meal.idMeal}>
+                        <Link to={(meal.idMeal && `/meal/${meal.idMeal}`) || (meal._id && `/new-post/${meal._id}`)} key={meal.idMeal || meal._id}>
                             <div className="cursor-pointer">
                                 <div className="group relative m-0 flex h-72 max-w-96 rounded-xl shadow-xl  sm:mx-auto sm:max-w-lg overflow-hidden">
                                     <div className="relative z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 transition-all hover:scale-110">
                                         {imageLoading && <ImageLoader />}
-                                        <img onLoad={handleImageLoad} src={`${meal.strMealThumb}`} alt="" />
+                                        <img onLoad={handleImageLoad} src={`${meal.strMealThumb || meal.selectedFile}`} alt="" />
                                     </div>
                                     <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition duration-300 ease-in-out">
-                                        <h1 className={`text-yellow-900 ${meal.strMeal.length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal}</h1>
+                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal.title).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.title}</h1>
                                     </div>
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ import HeroImage from "../Assets/logo/hero.svg"
 import BannerRandomRes from '../Components/Banner/BannerRandomResFood'
 import Feature from '../Components/Feature/Feature';
 import CuisineList from '../Components/CuisineList/CuisineList';
+import NewPostRecipe from '../Components/NewPostRecipe/NewPostRecipe';
 const Home = () => {
     const navigate = useNavigate();
     const [data, setData] = useState();
@@ -42,8 +43,11 @@ const Home = () => {
         const fetchData = async () => {
             try {
                 setLoadingSearch(true);
-                const data = (await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchData}`)).data.meals
-                setSearchDataValue(data);
+                const response1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchData}`))
+                const response2 = (await axios.get(`/post-recipe/search?query=${searchData}`));
+                const data1 = response1.data.meals || [];
+                const data2 = response2.data || [];
+                setSearchDataValue([...data1, ...data2]);
                 setLoadingSearch(false)
             } catch (error) {
                 console.log(error)
@@ -70,9 +74,24 @@ const Home = () => {
                                     </button>
                                     {searchData?.length > 0 &&
                                         <ul id='search-result' className={`${isScrolled ? "hidden" : "block"} absolute w-full z-30 top-24 -left-[1px] bg-yellow-300 max-h-[300px] overflow-y-scroll rounded-xl shadow-lg`}>
-                                            {loadingSearch ? <p className='px-6 py-2 font-semibold text-xs text-gray-700'>Searching...</p> : <>{searchDataValue ? searchDataValue.map((search) => (
-                                                <Link to={`/meal/${search.idMeal}`} key={search.idMeal}><li className='px-6 py-2 transition-all hover:bg-white'><span className='text-yellow-900'>{search.strMeal}</span><p className='font-semibold text-xs text-gray-700'>{search.strArea}</p></li></Link>
-                                            )) : <p className='px-6 py-2 font-semibold text-xs text-gray-700'>No search found.</p>}</>}
+                                            {loadingSearch ? (
+                                                <p className='px-6 py-2 font-semibold text-xs text-gray-700'>Searching...</p>
+                                            ) : (
+                                                <>
+                                                    {searchDataValue ? (
+                                                        searchDataValue.map((search) => (
+                                                            <Link to={search.idMeal ? `/meal/${search.idMeal}` : `/new-post/${search._id}`} key={search.idMeal || search._id}>
+                                                                <li className='px-6 py-2 transition-all hover:bg-white'>
+                                                                    <span className='text-yellow-900'>{search.strMeal || search.title}</span>
+                                                                    <p className='font-semibold text-xs text-gray-700'>{search.strArea || search.country}</p>
+                                                                </li>
+                                                            </Link>
+                                                        ))
+                                                    ) : (
+                                                        <p className='px-6 py-2 font-semibold text-xs text-gray-700'>No search found.</p>
+                                                    )}
+                                                </>
+                                            )}
                                         </ul>
                                     }
                                 </div>
@@ -89,6 +108,7 @@ const Home = () => {
                 </div>
             </section>
             <BannerRandomRes data={data} />
+            <NewPostRecipe />
             <Feature />
             <CuisineList />
         </>

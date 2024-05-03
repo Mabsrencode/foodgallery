@@ -18,7 +18,24 @@ const offersSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    youtube: {
+      type: String,
+    },
+    source: {
+      type: String,
+    },
     userId: {
+      type: String,
+    },
+    userName: {
       type: String,
     },
   },

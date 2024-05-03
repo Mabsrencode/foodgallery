@@ -1,6 +1,6 @@
 const Recipe = require("../models/recipe.js");
 const User = require("../models/user.js");
-// Get all job Recipe
+// Get all Recipe
 const getAllRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find();
@@ -9,7 +9,61 @@ const getAllRecipes = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+//search
+const getAllSearch = async (req, res) => {
+  const { query } = req.query;
+  try {
+    const results = await Recipe.find({
+      title: { $regex: new RegExp(query, "i") },
+    });
+    res.json(results);
+  } catch (error) {
+    console.error("Error searching:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+//get recipe by category
+const getDataByCategory = async (req, res) => {
+  const { query } = req.query;
+  try {
+    const results = await Recipe.find({
+      category: { $regex: new RegExp(query, "i") },
+    });
+    res.json(results);
+  } catch (error) {
+    console.error("Error searching:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+//get recipe by country
+const getDataByCountry = async (req, res) => {
+  const { query } = req.query;
+  try {
+    const results = await Recipe.find({
+      country: { $regex: new RegExp(query, "i") },
+    });
+    res.json(results);
+  } catch (error) {
+    console.error("Error searching:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
+// Get recipe by recipe ID
+const getRecipeById = async (req, res) => {
+  const recipeId = req.query.recipe;
+  try {
+    const recipe = await Recipe.findById(recipeId);
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+    return res.json(recipe);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+//Get recipe only for user
 const getAllRecipeFromUser = async (req, res) => {
   const userId = req.query.userId;
   try {
@@ -22,13 +76,29 @@ const getAllRecipeFromUser = async (req, res) => {
 
 // Create a job offer
 const createRecipe = async (req, res) => {
-  const { title, instruction, ingredients, selectedFile, userId } = req.body;
+  const {
+    title,
+    instruction,
+    ingredients,
+    selectedFile,
+    category,
+    country,
+    youtube,
+    source,
+    userId,
+    userName,
+  } = req.body;
   const recipe = new Recipe({
     title: title,
     instruction: instruction,
     ingredients: ingredients,
     selectedFile: selectedFile,
+    category: category,
+    country: country,
+    youtube: youtube,
+    source: source,
     userId: userId,
+    userName: userName,
   });
 
   try {
@@ -69,4 +139,8 @@ module.exports = {
   createRecipe,
   updateRecipe,
   deleteRecipe,
+  getRecipeById,
+  getAllSearch,
+  getDataByCategory,
+  getDataByCountry,
 };

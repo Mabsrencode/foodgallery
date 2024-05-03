@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import FileBase from "react-file-base64"
+import { Link } from 'react-router-dom'
 import { useUser } from '../Context/useContext'
 import LoadingModal from '../Components/LoadingModal/LoadingModal'
 const PostRecipePage = () => {
     const user = useUser()
     const [recipeData, setRecipeData] = useState();
-    console.log(recipeData)
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         instruction: '',
         ingredients: [],
         selectedFile: '',
+        category: '',
+        country: '',
+        youtube: '',
+        source: '',
         userId: user?._id,
+        userName: user?.user
     });
     const [selectedRecipe, setSelectedRecipe] = useState(null);
 
@@ -69,6 +74,10 @@ const PostRecipePage = () => {
                         instruction: '',
                         ingredients: [],
                         selectedFile: '',
+                        category: '',
+                        country: '',
+                        youtube: '',
+                        source: '',
                     });
                     setSelectedRecipe(null);
                     fetchRecipe();
@@ -84,6 +93,10 @@ const PostRecipePage = () => {
                         instruction: '',
                         ingredients: [],
                         selectedFile: '',
+                        category: '',
+                        country: '',
+                        youtube: '',
+                        source: '',
                     });
                     fetchRecipe();
                 })
@@ -110,6 +123,10 @@ const PostRecipePage = () => {
             instruction: recipe.instruction,
             ingredients: recipe.ingredients,
             selectedFile: recipe.selectedFile,
+            category: recipe.category,
+            country: recipe.country,
+            youtube: recipe.youtube,
+            source: recipe.source,
         });
     };
 
@@ -127,6 +144,56 @@ const PostRecipePage = () => {
                                 name="title"
                                 placeholder="Title"
                                 value={formData.title}
+                                onChange={handleChange}
+                                className='bg-yellow-50 border-2 border-yellow-900 text-gray-900 sm:text-sm rounded-lg focus:outline-yellow-400 focus:border-yellow-900 block w-full p-2.5'
+                            />
+                        </div>
+                        <div className="mt-2 flex gap-2">
+                            <div className='w-full'>
+                                <label htmlFor="category" className='font-semibold text-sm'>Category</label>
+                                <input
+                                    id='category'
+                                    type="text"
+                                    name="category"
+                                    placeholder="Category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    className='bg-yellow-50 border-2 border-yellow-900 text-gray-900 sm:text-sm rounded-lg focus:outline-yellow-400 focus:border-yellow-900 block w-full p-2.5'
+                                />
+                            </div>
+                            <div className='w-full'>
+                                <label htmlFor="country" className='font-semibold text-sm'>Country</label>
+                                <input
+                                    id='country'
+                                    type="text"
+                                    name="country"
+                                    placeholder="Country"
+                                    value={formData.country}
+                                    onChange={handleChange}
+                                    className='bg-yellow-50 border-2 border-yellow-900 text-gray-900 sm:text-sm rounded-lg focus:outline-yellow-400 focus:border-yellow-900 block w-full p-2.5'
+                                />
+                            </div>
+                        </div>
+                        <div className="mt-2">
+                            <label htmlFor="youtube" className='font-semibold text-sm'>Youtube</label>
+                            <input
+                                id='youtube'
+                                type="text"
+                                name="youtube"
+                                placeholder="Youtube"
+                                value={formData.youtube}
+                                onChange={handleChange}
+                                className='bg-yellow-50 border-2 border-yellow-900 text-gray-900 sm:text-sm rounded-lg focus:outline-yellow-400 focus:border-yellow-900 block w-full p-2.5'
+                            />
+                        </div>
+                        <div className="mt-2">
+                            <label htmlFor="source" className='font-semibold text-sm'>Source</label>
+                            <input
+                                id='source'
+                                type="text"
+                                name="source"
+                                placeholder="Source"
+                                value={formData.source}
                                 onChange={handleChange}
                                 className='bg-yellow-50 border-2 border-yellow-900 text-gray-900 sm:text-sm rounded-lg focus:outline-yellow-400 focus:border-yellow-900 block w-full p-2.5'
                             />
@@ -174,13 +241,38 @@ const PostRecipePage = () => {
                     {loading ? (<LoadingModal />) : (
                         recipeData?.length > 0 ? recipeData?.map((recipe) => (
                             <div key={recipe._id} className='bg-yellow-100 rounded-lg mb-6 shadow-lg'>
-                                <div className="container flex flex-col-reverse gap-6 px-6 mx-auto lg:h-[32rem]">
+                                <div className="container flex flex-col-reverse gap-6 px-6 py-6 mx-auto lg:h-[42rem]">
                                     <div className="">
                                         <h1 className="text-3xl font-bold tracking-wide text-yellow-900 lg:text-5xl">
                                             {recipe.title}
                                         </h1>
+                                        <ul className="mt-8 space-y-5">
+                                            <li className="flex items-center -mx-2 text-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+
+                                                <p className="mx-2">{recipe.country}</p>
+                                            </li>
+
+                                            <li className="flex items-center -mx-2 text-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+
+                                                <p className="mx-2">{recipe.category}</p>
+                                            </li>
+                                        </ul>
                                     </div>
 
+                                    <div>
+                                        {recipe.youtube && <Link to={`${recipe.youtube}`} className='text-xs md:text-base hover:bg-yellow-200 block mb-4 bg-yellow-300 px-2 md:px-6 py-2 text-center rounded-lg font-semibold text-yellow-900'>
+                                            Watch on Youtube how to make this recipe.
+                                        </Link>}
+                                        {recipe.source && <Link to={recipe.source} className='text-xs md:text-base hover:bg-yellow-200 block truncate mb-4 bg-yellow-300 px-2 md:px-6 py-2 text-center rounded-lg font-semibold text-yellow-900'>
+                                            Source
+                                        </Link>}
+                                    </div>
                                     <div className="flex items-center justify-center w-full h-96 overflow-hidden rounded-lg ">
                                         <img className="object-cover w-full h-[300px] sm:h-full mx-auto rounded-md lg:max-w-2xl" src={recipe.selectedFile} alt="glasses " />
                                     </div>
@@ -190,13 +282,13 @@ const PostRecipePage = () => {
                                         <h1 className='text-xl text-yellow-900 font-bold'>INSTRUCTIONS</h1>
                                         <p className='text-justify text-gray-700 mt-6'>{recipe.instruction}</p>
                                     </div>
-                                    <div className='w-full lg:w-1/2'>
+                                    <div className='w-full'>
                                         <h1 className='text-xl text-yellow-900 font-bold'>INGREDIENTS</h1>
-                                        <ul className='mt-6'>
-                                            {recipe?.ingredients?.map((requirement, index) => (
-                                                <li key={index} className='mt-4 flex gap-4'> <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>{requirement}</li>
+                                        <ul className='mt-6 grid grid-cols-2 md:grid-cols-3 grid-rows gap-4'>
+                                            {recipe.ingredients?.map((instruction, index) => (
+                                                <li key={instruction.id} className='mt-3'>
+                                                    <strong className="font-bold text-yellow-900">{index + 1}.</strong> {instruction}
+                                                </li>
                                             ))}
                                         </ul>
                                     </div>
