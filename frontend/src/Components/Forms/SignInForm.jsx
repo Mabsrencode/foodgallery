@@ -13,7 +13,7 @@ const SignInForm = ({ open, setOpen }) => {
     const handleSignIn = async () => {
         try {
             setLoading(true)
-            const response = (await axios.post("/auth/login", { username, password }, { withCredentials: true }))
+            const response = (await axios.post("https://rich-red-snail-boot.cyclic.app/auth/login", { username, password }, { withCredentials: true }))
             console.log(response)
             setData(response?.data?.message)
             setLoading(false)
