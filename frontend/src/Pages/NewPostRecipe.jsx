@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import LoadingModal from '../Components/LoadingModal/LoadingModal'
+import FetchDataRecipeQuery from '../Middleware/FetchDataRecipeQuery'
 const NewPostRecipe = () => {
     const { _id } = useParams();
     const [data, setData] = useState([]);
@@ -12,8 +12,8 @@ const NewPostRecipe = () => {
         const fetchRecipe = async () => {
             try {
                 setLoading(true);
-                const data = (await axios.get(`/post-recipe/get-recipe?recipe=${_id}`)).data
-                setData([data]);
+                const data = await FetchDataRecipeQuery("/post-recipe/get-recipe?recipe=", _id);
+                setData([data.data]);
                 setLoading(false);
             } catch (error) {
                 console.log(error.message);

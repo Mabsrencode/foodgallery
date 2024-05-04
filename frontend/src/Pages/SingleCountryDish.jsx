@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Paginate from '../Components/Paginate/Paginate'
 import ImageLoader from '../Components/ImageLoader/ImageLoader'
+import FetchDataRecipeQuery from '../Middleware/FetchDataRecipeQuery'
 const SingleCountryDish = () => {
     const { _id } = useParams();
     const [data, setData] = useState();
@@ -39,8 +40,7 @@ const SingleCountryDish = () => {
             try {
                 setLoading(true);
                 const response1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${_id}`))
-                const response2 = await axios.get(`/post-recipe/country?query=${_id}`);
-                console.log(response2)
+                const response2 = await FetchDataRecipeQuery("/post-recipe/country?query=", _id);
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data || [];
                 setData([...data1, ...data2]);

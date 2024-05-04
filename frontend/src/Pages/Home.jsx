@@ -6,11 +6,13 @@ import BannerRandomRes from '../Components/Banner/BannerRandomResFood'
 import Feature from '../Components/Feature/Feature';
 import CuisineList from '../Components/CuisineList/CuisineList';
 import NewPostRecipe from '../Components/NewPostRecipe/NewPostRecipe';
+import FetchDataRecipeQuery from '../Middleware/FetchDataRecipeQuery';
 const Home = () => {
     const navigate = useNavigate();
     const [data, setData] = useState();
     const [searchData, setSearchData] = useState();
     const [searchDataValue, setSearchDataValue] = useState();
+    console.log(searchDataValue)
     const [isScrolled, setIsScrolled] = useState(false);
     const [loadingSearch, setLoadingSearch] = useState(false);
     useEffect(() => {
@@ -38,15 +40,15 @@ const Home = () => {
         }
         fetchData();
     }, []);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoadingSearch(true);
                 const response1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchData}`))
-                const response2 = (await axios.get(`/post-recipe/search?query=${searchData}`));
+                const response2 = await FetchDataRecipeQuery("/post-recipe/search?query=", searchData);
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data || [];
+                console.log(data2)
                 setSearchDataValue([...data1, ...data2]);
                 setLoadingSearch(false)
             } catch (error) {
@@ -78,7 +80,7 @@ const Home = () => {
                                                 <p className='px-6 py-2 font-semibold text-xs text-gray-700'>Searching...</p>
                                             ) : (
                                                 <>
-                                                    {searchDataValue ? (
+                                                    {searchDataValue.length > 0 ? (
                                                         searchDataValue.map((search) => (
                                                             <Link to={search.idMeal ? `/meal/${search.idMeal}` : `/new-post/${search._id}`} key={search.idMeal || search._id}>
                                                                 <li className='px-6 py-2 transition-all hover:bg-white'>

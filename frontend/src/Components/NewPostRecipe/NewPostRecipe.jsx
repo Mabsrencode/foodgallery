@@ -23,7 +23,7 @@ const NewPostRecipe = () => {
     }, [])
     return (
         <section className='mt-[10%]'>
-            {data.length > 0 && (<h1 className='mb-2 text-center text-7xl text-yellow-900 '>Latest Post Recipe For You</h1>)}
+            {data.length > 0 && (<h1 className='text-center text-2xl md:text-7xl text-yellow-900 md:mb-6'>Latest Post Recipe For You</h1>)}
             {data?.map((recipe, index) => (
                 <div key={index} className="container flex flex-col-reverse gap-6 px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row-reverse lg:items-center">
                     <div className="w-full lg:w-1/2">

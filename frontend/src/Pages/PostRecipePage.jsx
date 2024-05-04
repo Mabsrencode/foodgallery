@@ -4,6 +4,7 @@ import FileBase from "react-file-base64"
 import { Link } from 'react-router-dom'
 import { useUser } from '../Context/useContext'
 import LoadingModal from '../Components/LoadingModal/LoadingModal'
+import FetchDataRecipeByParams from '../Middleware/FetchDataRecipeByParams'
 const PostRecipePage = () => {
     const user = useUser()
     const [recipeData, setRecipeData] = useState();
@@ -26,12 +27,10 @@ const PostRecipePage = () => {
         try {
             setLoading(true);
             const timestamp = Date.now();
-            const response = (await axios.get('/post-recipe/post', {
-                params: {
-                    userId: user?._id,
-                    timestamp: timestamp
-                }
-            }))?.data;
+            const response = await FetchDataRecipeByParams('/post-recipe/post', {
+                userId: user?._id,
+                timestamp: timestamp
+            });
             setRecipeData(response);
             setLoading(false);
         } catch (error) {
@@ -286,7 +285,7 @@ const PostRecipePage = () => {
                                         <h1 className='text-xl text-yellow-900 font-bold'>INGREDIENTS</h1>
                                         <ul className='mt-6 grid grid-cols-2 md:grid-cols-3 grid-rows gap-4'>
                                             {recipe.ingredients?.map((instruction, index) => (
-                                                <li key={instruction.id} className='mt-3'>
+                                                <li key={index} className='mt-3'>
                                                     <strong className="font-bold text-yellow-900">{index + 1}.</strong> {instruction}
                                                 </li>
                                             ))}

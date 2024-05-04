@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Link, useNavigate } from 'react-router-dom'
 import Paginate from '../Components/Paginate/Paginate'
 import ImageLoader from '../Components/ImageLoader/ImageLoader'
+import FetchDataRecipeQuery from '../Middleware/FetchDataRecipeQuery'
 const SingleCategoryPage = () => {
     const navigate = useNavigate()
     const { _id } = useParams();
@@ -44,8 +45,8 @@ const SingleCategoryPage = () => {
                 setLoading(true);
                 const response1 = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`);
                 const response2 = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`);
-                const response3 = await axios.get(`/post-recipe/category?query=${_id}`);
-                // const response2 = (await axios.get(`/post-recipe/search?query=${searchData}`));
+                // const response3 = await axios.get(`/post-recipe/category?query=${_id}`);
+                const response3 = await FetchDataRecipeQuery("/post-recipe/category?query=", _id);
                 console.log(response3)
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data.drinks || [];
