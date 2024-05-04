@@ -20,6 +20,9 @@ const SignInForm = ({ open, setOpen }) => {
             setError(false)
             localStorage.setItem("fg-username", response.data?.userData.username)
             setTimeout(() => {
+                window.location.reload()
+            }, 60 * 60 * 1000)
+            setTimeout(() => {
                 setOpen(false)
                 window.location.reload()
             }, 1000)
