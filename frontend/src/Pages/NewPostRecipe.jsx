@@ -13,7 +13,7 @@ const NewPostRecipe = () => {
             try {
                 setLoading(true);
                 const data = await FetchDataRecipeQuery("/post-recipe/get-recipe?recipe=", _id);
-                setData([data.data]);
+                setData([data?.data]);
                 setLoading(false);
             } catch (error) {
                 console.log(error.message);
