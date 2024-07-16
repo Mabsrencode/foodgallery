@@ -12,7 +12,6 @@ const Home = () => {
     const [data, setData] = useState();
     const [searchData, setSearchData] = useState();
     const [searchDataValue, setSearchDataValue] = useState();
-    console.log(searchDataValue)
     const [isScrolled, setIsScrolled] = useState(false);
     const [loadingSearch, setLoadingSearch] = useState(false);
     useEffect(() => {
@@ -48,7 +47,6 @@ const Home = () => {
                 const response2 = await FetchDataRecipeQuery("/post-recipe/search?query=", searchData);
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data || [];
-                console.log(data2)
                 setSearchDataValue([...data1, ...data2]);
                 setLoadingSearch(false)
             } catch (error) {

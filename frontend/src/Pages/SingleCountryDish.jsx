@@ -100,7 +100,7 @@ const SingleCountryDish = () => {
                                         <img onLoad={handleImageLoad} src={`${meal.strMealThumb || meal.selectedFile}`} alt="" />
                                     </div>
                                     <div className="absolute w-full bg-yellow-300 bottom-0 z-10 m-0 py-4 px-4 transition duration-300 ease-in-out">
-                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal.title).length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.title}</h1>
+                                        <h1 className={`text-yellow-900 ${(meal.strMeal || meal?.title)?.length > 30 ? "text-lg" : "text-2xl"}`}>{meal.strMeal || meal.title}</h1>
                                     </div>
                                 </div>
                             </div>
