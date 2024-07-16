@@ -45,5 +45,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.3"
   },
-  "proxy": "https://foodgallery-api.onrender.com/"
+  "proxy": "https://foodgallery-api.onrender.com"
 }
