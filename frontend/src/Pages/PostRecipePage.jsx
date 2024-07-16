@@ -27,7 +27,7 @@ const PostRecipePage = () => {
         try {
             setLoading(true);
             const timestamp = Date.now();
-            const response = await FetchDataRecipeByParams('https://foodgallery-api.onrender.com/post-recipe/post', {
+            const response = await FetchDataRecipeByParams('/post-recipe/post', {
                 userId: user?._id,
                 timestamp: timestamp
             });
@@ -66,7 +66,7 @@ const PostRecipePage = () => {
     const handleSubmit = e => {
         e.preventDefault();
         if (selectedRecipe) {
-            axios.put(`https://foodgallery-api.onrender.com/post-recipe/update-recipe/${selectedRecipe}`, formData)
+            axios.put(`/post-recipe/update-recipe/${selectedRecipe}`, formData)
                 .then(() => {
                     setFormData({
                         title: '',
@@ -85,7 +85,7 @@ const PostRecipePage = () => {
                     console.error('Error updating recipe:', error);
                 });
         } else {
-            axios.post('https://foodgallery-api.onrender.com/post-recipe/create-recipe', formData)
+            axios.post('/post-recipe/create-recipe', formData)
                 .then(() => {
                     setFormData({
                         title: '',
@@ -106,7 +106,7 @@ const PostRecipePage = () => {
     };
 
     const handleDelete = id => {
-        axios.delete(`https://foodgallery-api.onrender.com/post-recipe/delete-recipe/${id}`)
+        axios.delete(`/post-recipe/delete-recipe/${id}`)
             .then(() => {
                 fetchRecipe();
             })

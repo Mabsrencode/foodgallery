@@ -12,7 +12,7 @@ const NewPostRecipe = () => {
         const fetchRecipe = async () => {
             try {
                 setLoading(true);
-                const data = await FetchDataRecipeQuery("https://foodgallery-api.onrender.com/post-recipe/get-recipe?recipe=", _id);
+                const data = await FetchDataRecipeQuery("/post-recipe/get-recipe?recipe=", _id);
                 setData([data?.data]);
                 setLoading(false);
             } catch (error) {

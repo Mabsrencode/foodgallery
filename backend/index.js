@@ -10,27 +10,27 @@ const connectDB = require("./db.js");
 const authRoutes = require("./routes/auth.route.js");
 const postRecipe = require("./routes/recipes.route.js");
 const app = express();
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     // origin: "*",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     credentials: true,
-//   })
-// );
+
+app.use(
+  cors({
+    origin: "https://foodgallery.onrender.com",
+    // origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-// app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "build")));
 
-// app.get("/*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 
-//   // ../frontend/
-// });
+  // ../frontend/
+});
 
 // const dbUrl = process.env.DB_URL;
 const PORT = process.env.PORT || 4000;

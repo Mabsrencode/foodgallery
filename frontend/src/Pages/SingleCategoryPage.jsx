@@ -46,7 +46,7 @@ const SingleCategoryPage = () => {
                 const response1 = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${_id}`);
                 const response2 = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${_id}`);
                 // const response3 = await axios.get(`/post-recipe/category?query=${_id}`);
-                const response3 = await FetchDataRecipeQuery("https://foodgallery-api.onrender.com/post-recipe/category?query=", _id);
+                const response3 = await FetchDataRecipeQuery("/post-recipe/category?query=", _id);
                 console.log(response3)
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data.drinks || [];

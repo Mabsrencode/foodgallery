@@ -40,7 +40,7 @@ const SingleCountryDish = () => {
             try {
                 setLoading(true);
                 const response1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${_id}`))
-                const response2 = await FetchDataRecipeQuery("https://foodgallery-api.onrender.com/post-recipe/country?query=", _id);
+                const response2 = await FetchDataRecipeQuery("/post-recipe/country?query=", _id);
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data || [];
                 setData([...data1, ...data2]);
