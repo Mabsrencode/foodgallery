@@ -45,7 +45,7 @@ const Home = () => {
             try {
                 setLoadingSearch(true);
                 const response1 = (await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchData}`))
-                const response2 = await FetchDataRecipeQuery("/post-recipe/search?query=", searchData);
+                const response2 = await FetchDataRecipeQuery("https://foodgallery-api.onrender.com/post-recipe/search?query=", searchData);
                 const data1 = response1.data.meals || [];
                 const data2 = response2.data || [];
                 console.log(data2)

@@ -14,7 +14,11 @@ export const UserProvider = () => {
     const verifyCookie = async () => {
       setLoading(true);
 
-      const { data } = await axios.post("/auth", {}, { withCredentials: true });
+      const { data } = await axios.post(
+        "https://foodgallery-api.onrender.com/auth",
+        {},
+        { withCredentials: true }
+      );
       if (!data.status) {
         return navigate("/") && window.location.reload();
       }

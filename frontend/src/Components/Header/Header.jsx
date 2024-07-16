@@ -46,7 +46,7 @@ const Header = () => {
 
     const validate = async () => {
         const { data } = await axios.post(
-            "/auth",
+            "https://foodgallery-api.onrender.com/auth",
             {},
             { withCredentials: true }
         );

@@ -16,7 +16,7 @@ const SignUpForm = ({ open, setOpen }) => {
     const handleSubmit = async () => {
         try {
             setLoading(true)
-            const response = (await axios.post('/auth/register', {
+            const response = (await axios.post('https://foodgallery-api.onrender.com/auth/register', {
                 username,
                 email,
                 password,
