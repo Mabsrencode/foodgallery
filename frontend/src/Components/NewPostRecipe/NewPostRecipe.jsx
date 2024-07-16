@@ -13,7 +13,7 @@ const NewPostRecipe = () => {
     useEffect(() => {
         const fetchNewPostRecipe = async () => {
             try {
-                const data = (await axios.get('https://rich-red-snail-boot.cyclic.app/post-recipe/all-recipes')).data
+                const data = (await axios.get('/post-recipe/all-recipes')).data
                 setData(data.slice(-1));
             } catch (error) {
                 console.log(error.message);

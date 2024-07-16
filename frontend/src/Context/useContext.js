@@ -14,11 +14,7 @@ export const UserProvider = () => {
     const verifyCookie = async () => {
       setLoading(true);
 
-      const { data } = await axios.post(
-        "https://rich-red-snail-boot.cyclic.app/auth",
-        {},
-        { withCredentials: true }
-      );
+      const { data } = await axios.post("/auth", {}, { withCredentials: true });
       if (!data.status) {
         return navigate("/") && window.location.reload();
       }

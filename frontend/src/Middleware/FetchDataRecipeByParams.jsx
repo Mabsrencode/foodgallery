@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const FetchDataRecipeByParams = async (url, paramsObject) => {
     try {
-        const response = await axios.get("https://rich-red-snail-boot.cyclic.app", url, { params: paramsObject });
+        const response = await axios.get(url, { params: paramsObject });
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error.message);

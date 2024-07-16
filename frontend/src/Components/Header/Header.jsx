@@ -46,7 +46,7 @@ const Header = () => {
 
     const validate = async () => {
         const { data } = await axios.post(
-            "https://rich-red-snail-boot.cyclic.app/auth",
+            "/auth",
             {},
             { withCredentials: true }
         );

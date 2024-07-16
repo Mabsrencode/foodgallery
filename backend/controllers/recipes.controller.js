@@ -74,7 +74,7 @@ const getAllRecipeFromUser = async (req, res) => {
   }
 };
 
-// Create a job offer
+// Create a recipe
 const createRecipe = async (req, res) => {
   const {
     title,
@@ -109,7 +109,7 @@ const createRecipe = async (req, res) => {
   }
 };
 
-// Update a job offer
+// Update a recipe
 const updateRecipe = async (req, res) => {
   try {
     const updatedRecipe = await Recipe.findByIdAndUpdate(
@@ -123,7 +123,7 @@ const updateRecipe = async (req, res) => {
   }
 };
 
-// Delete a job offer
+// Delete a recipe
 const deleteRecipe = async (req, res) => {
   try {
     await Recipe.findByIdAndDelete(req.params.id);
