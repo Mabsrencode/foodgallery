@@ -13,8 +13,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://foodgallery.onrender.com",
-    // origin: "*",
+    // origin: "https://foodgallery.onrender.com",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
